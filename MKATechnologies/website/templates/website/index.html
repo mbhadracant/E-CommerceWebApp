@@ -10,51 +10,7 @@
 
 <body>
 
-<div id="navbar-container">
-    <div id="logo" class="navbar-item">
-        <a><span class="logo-init"><i class="fa fa-superpowers" aria-hidden="true"></i>
-MKA TECHNOLOGIES</span></a>
-    </div>
-
-    <div id="shop" class="navbar-item">
-        <a>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;SHOP</span>
-            <span class="caret">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-        </a>
-         <div class="dropdown-content">
-            <a class="dropdown-item" href="#">Computing</a>
-            <a class="dropdown-item" href="#">TV & Home Cinema</a>
-            <a class="dropdown-item" href="#">Gaming</a>
-            <a class="dropdown-item" href="#">Mobile Phones</a>
-            <a class="dropdown-item" href="#">Camera</a>
-            <div class="dropdown-nested"></div>
-        </div>
-
-    </div>
-
-    <div id="search" class="navbar-item">
-         <form class="search-container" autocomplete="off">
-    <input id="search-box" type="text" class="search-box" autocomplete="off" name="q" />
-    <label for="search-box"><span class="glyphicon glyphicon-search search-icon"></span></label>
-    <input type="submit" id="search-submit" />
-</form>
-    </div>
-
-    <div id="basket" class="navbar-item">
-        <a id="basket-icon">
-            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-            <span>0</span>
-        </a>
-    </div>
-
-    <div id="account" class="navbar-item">
-        <a id="account-icon">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            Account
-        </a>
-    </div>
-</div>
-
+{% include "website/shared/navbar.html" %}
 
 <div id="outer">
     <div id="home-top-video">
@@ -70,8 +26,6 @@ MKA TECHNOLOGIES</span></a>
 
 <div class="row">
     <div class="col col-span-6">
-
-
         <div class="shadow" style="padding:15px;margin-left:50px;margin-right:50px;">
             <h2><b>DEAL OF THE DAY</b></h2>
             <img src="http://elementalx.org/wp-content/uploads/2016/06/oneplus3.png" width="150"
@@ -118,112 +72,11 @@ MKA TECHNOLOGIES</span></a>
 
 </div>
 
-<div id="footer">
-    <div class="row">
-    <div class="col col-span-3">
-        <h5><b>About Us</b></h5>
-        <ul>
-            <li>Company Information</li>
-            <li>Join our Customer Panel</li>
-            <li>Charitable Foundation</li>
-        </ul>
-    </div>
-    <div class="col col-span-3">
-        <h5><b>Careers</b></h5>
-        <ul>
-            <li>Engineering Culture</li>
-            <li>Retail Culture</li>
-            <li>Students</li>
-            <li>Explore</li>
-        </ul>
-    </div>
-    <div class="col col-span-3">
-        <h5><b>Customer Support</b></h5>
-    </div>
-    <div class="col col-span-3">
-        <h5><b>Policy</b></h5>
-    </div>
-</div>
-</div>
-
+{% include "website/shared/footer.html" %}
 
 <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
-<script>
-    $(document).ready(function () {
-
-
-        $(window).scroll(function () {
-            var pos = $(window).scrollTop();
-            $('#navbar-container').removeClass(function (index, css) {
-                return (css.match(/(^|\s)bg-\S+/g) || []).join(' ');
-            });
-
-            $('.navbar-item a').removeClass(function (index, css) {
-                return (css.match(/(^|\s)color-\S+/g) || []).join(' ');
-            });
-
-            $('#logo a span').removeClass(function (index, css) {
-                return (css.match(/(^|\s)logo-\S+/g) || []).join(' ');
-            });
-
-            $('.search-box').removeClass(function (index, css) {
-                return (css.match(/(^|\s)search-box-\S+/g) || []).join(' ');
-            });
-
-            $('.search-box + label .search-icon').removeClass(function (index, css) {
-                return (css.match(/(^|\s)search-box-icon\S+/g) || []).join(' ');
-            });
-
-            if (pos >= 50) {
-                $('#navbar-container').addClass('bg-bottom');
-                $('.navbar-item a').addClass('color-bottom');
-                $('#logo a span').addClass('logo-bottom');
-                $('.search-box').addClass('search-box-bottom');
-                $('.search-box + label .search-icon').addClass('search-box-icon-bottom');
-            }
-            if (pos < 50) {
-                $('#navbar-container').addClass('bg-top');
-                $('.navbar-item a').addClass('color-top');
-                $('#logo a span').addClass('logo-top');
-                $('.search-box').addClass('search-box-top');
-                $('.search-box + label .search-icon').addClass('search-box-icon-top');
-            }
-        });
-
-
-        $(".dropdown-item").hover(
-            function () {
-                $('.dropdown-nested').animate({
-                    minWidth: '250px',
-                }, 500);
-
-
-
-        });
-
-        $(".dropdown-content").mouseleave(function() {
-                $('.dropdown-nested').stop();
-                $('.dropdown-nested').animate({
-                    minWidth: '0px',
-                }, 0);
-
-        });
-
-        $("#shop").mouseenter(function() {
-                $('.dropdown-nested').stop();
-                $('.dropdown-nested').animate({
-                    minWidth: '0px',
-                }, 0);
-
-        });
-
-
-
-
-    });
-
+<script src="{% static 'js/script.js' %}">
 
 </script>
 </body>

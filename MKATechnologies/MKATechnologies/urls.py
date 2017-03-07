@@ -17,7 +17,10 @@ from django.conf.urls import url
 from django.contrib import admin
 from website import views
 
+departments = ['computing','tv-and-home-cinema','gaming','mobile-phones','camera']
+departments_re = '(?:' + '|'.join(departments) + ')'
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index),
+    url(r'^' + departments_re + '/$', views.department),
 ]

@@ -5,3 +5,7 @@ from django.http import HttpResponse
 
 def index(request):
     return render(request, 'website/index.html')
+
+
+def department(request):
+    return render(request, 'website/department.html')
