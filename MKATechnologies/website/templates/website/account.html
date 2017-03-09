@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+</head>
+<body>
+{% include "website/shared/navbar.html" %}
+<div id="navbar-bg"></div>
+{% if account is None %}
+    <div class="container">
+        <!--
+            -->
+            <div id="account-content">
+            <div id="tabs">
+                <div class="tab-item"><b>LOG IN</b></div>
+                <div class="tab-item"><b>REGISTER</b></div>
+                <span></span>
+            </div>
+            <div id="tab-content">
+                <div class="log-in">
+                    <form class="form-label form-css-label">
+                  <fieldset>
+                  <input id="email-log-in" name="email" type="text" autocomplete="off" required />
+                  <label for="email">Email Address</label>
+                </fieldset>
+                <fieldset>
+                  <input id="password-log-in" name="password" type="password" minlength="6" maxlength="20" autocomplete="off" required />
+                  <label for="password">Password</label>
+                </fieldset>
+                        <hr>
+                        <h5>Forget Password?</h5>
+                        <hr>
+                  <button class="account-btn" type="submit">SIGN IN</button>
+            </form>
+
+                </div>
+                <div class="register">
+                    <form class="form-label form-css-label">
+
+                <fieldset>
+                  <input id="name" name="name" type="text" autocomplete="off" required />
+                  <label for="name">Name</label>
+                </fieldset>
+                        <fieldset>
+                  <input id="email" name="email" type="text" autocomplete="off" required />
+                  <label for="email">Email</label>
+                </fieldset>
+                        <fieldset>
+                  <input id="password-register" name="password" type="password" autocomplete="off" minlength="6" maxlength="20" required />
+                  <label for="password">Password</label>
+                </fieldset>
+                        <hr>
+                        <span>PASSWORD MUST BE BETWEEN 6 - 20 CHARACTERS</span>
+                         <button class="account-btn" type="submit">REGISTER</button>
+            </form>
+
+                </div>
+            </div>
+            </div>
+        <!-- "><div"s are required to avoid spaces between display: inline-block elements. http://css-tricks.com/fighting-the-space-between-inline-block-elements/ -->
+    </div>
+    </div>
+{% else %}
+<div id="account-info">
+
+</div>
+{% endif %}
+{% include "website/shared/footer.html" %}
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script>
+    $(document).ready(function() {
+
+        $('.form-label label').click(function() {
+            var input = $(this).prev()
+            $(input).focus()
+        });
+
+        $('.tab-item').click(function() {
+
+            var tabItems = $('.tab-item');
+            var tabLogIn = tabItems[0]
+            var tabRegister = tabItems[1]
+            var tabLogInText = $(tabLogIn).find('b').html()
+           var tabRegisterText = $(tabRegister).find('b').html()
+            var selectedTab = $(this)
+            var selectedText = $(selectedTab).find('b').html()
+            var line = $('#tabs span');
+            var marginLeft = $(line).css("margin-left")
+            if(marginLeft === '-75px' && tabRegisterText === selectedText) {
+                $(line).animate({'marginLeft': 75}, 250, "swing")
+                $('.log-in').fadeOut(250, function() {
+                    $('.register').fadeIn()
+                })
+
+            }
+            if(marginLeft === '75px' && tabLogInText === selectedText){
+                $(line).animate({'marginLeft': -75}, 250, "swing")
+
+                $('.register').fadeOut(250, function() {
+                     $('.log-in').fadeIn()
+                })
+
+            }
+
+        });
+    });
+</script>
+</body>
+</html>

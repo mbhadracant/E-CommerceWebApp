@@ -18,10 +18,16 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from website import views
 
+departments = ['computing','tv-and-home-cinema','gaming','mobile-phones','camera']
+departments_re = '(?:' + '|'.join(departments) + ')'
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index),
     url(r'^api/', include('product.urls')),
+    url(r'^' + departments_re + '/$', views.department),
+    url(r'^search/$', views.search),
+    url(r'^product/$', views.product),
+    url(r'^account/$', views.account),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

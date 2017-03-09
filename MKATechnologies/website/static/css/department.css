@@ -1,0 +1,144 @@
+@media all and (min-width: 1024px) {
+    .slide-text {
+        font-size:30px;
+    }
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+
+    .slide-text {
+        font-size:20px;
+    }
+
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+    .slide-text {
+        font-size:16px;
+    }
+}
+
+@media all and (max-width: 480px) {
+    .slide-text {
+        font-size:12px;
+    }
+}
+
+#search {
+    margin-top:0px;
+}
+
+#categories {
+    background:black;
+    width:100%;
+    height:225px;
+    padding:20px;
+    margin:0 auto;
+}
+
+#categories-row {
+    width:70%;
+    margin: 0 auto;
+    margin-top:65px;
+    height:100px;
+    padding:0px;
+}
+
+.scale-down-50 {
+    -webkit-transform: scale(0.5); /* Saf3.1+, Chrome */
+     -moz-transform: scale(0.5); /* FF3.5+ */
+      -ms-transform: scale(0.5); /* IE9 */
+       -o-transform: scale(0.5); /* Opera 10.5+ */
+          transform: scale(0.5);
+}
+
+.scale-down-75 {
+    -webkit-transform: scale(0.75); /* Saf3.1+, Chrome */
+     -moz-transform: scale(0.75); /* FF3.5+ */
+      -ms-transform: scale(0.75); /* IE9 */
+       -o-transform: scale(0.75); /* Opera 10.5+ */
+          transform: scale(0.75);
+}
+
+.cateogires-item {
+    margin:0 auto;
+    text-align: center;
+    color:white;
+    text-transform: uppercase;
+}
+
+.cateogires-item h6:hover {
+    color:skyblue;
+    cursor: pointer;
+}
+
+#main-content {
+    background: white;
+    width: 100%;
+    display: block;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 700px;
+    height:auto;
+}
+
+#main-content .row {
+    height:500px;
+}
+
+#main-content .row .col {
+    width:100%;
+    border:2px solid rgb(240,240,240);
+    height:380px;
+    padding:20px;
+    margin:10px;
+    border-radius: 30px;
+
+
+}
+
+.promo-brand {
+    width:30px;
+    height:30px;
+}
+
+.promo-image {
+    width:300px;
+    height:200px;
+}
+
+#main-content .row .col h4 {
+    display: inline-block;
+    padding: 10px;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+#main-content .row .col div {
+    margin-top:20px;
+    line-height: 20px;
+    height:40px;
+    padding: 10px;
+    width:100px;
+}
+
+#slippry-demo {
+    height:auto;
+    width:100%;
+}
+
+.slide-text {
+    position: absolute;
+    z-index: 100;
+    color:white;
+    background:rgba(0,0,0,0.7);
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    box-shadow: 0px 0px 50px 1px rgba(100,100,100,0.5);
+    margin-top:20px;
+}
+

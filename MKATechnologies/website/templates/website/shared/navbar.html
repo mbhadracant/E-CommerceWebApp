@@ -1,0 +1,79 @@
+<div id="navbar-container">
+    <div id="logo" class="navbar-item">
+        <a href="/"><span class="logo-init"><i class="fa fa-superpowers" aria-hidden="true"></i>
+MKA TECHNOLOGIES</span></a>
+    </div>
+
+    <div id="shop" class="navbar-item">
+        <a>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;SHOP</span>
+            <span class="caret">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        </a>
+        <div class="dropdown-content">
+            <a class="dropdown-item" href="/computing">Computing</a>
+            <a class="dropdown-item" href="/tv-and-home-cinema">TV & Home Cinema</a>
+            <a class="dropdown-item" href="/gaming">Gaming</a>
+            <a class="dropdown-item" href="/mobile-phones">Mobile Phones</a>
+            <a class="dropdown-item" href="/camera">Camera</a>
+            <div class="dropdown-nested"></div>
+        </div>
+
+    </div>
+
+
+    <div id="basket" class="navbar-item">
+        <a id="basket-icon">
+            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+            <span>0</span>
+        </a>
+    </div>
+
+    <div id="account" class="navbar-item">
+        <a href="/account" id="account-icon">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Account
+        </a>
+    </div>
+
+    <div id="search" class="navbar-item">
+        <form action="/search/" class="search-container" autocomplete="off">
+            <input id="search-box" type="text" name="query" class="search-box" autocomplete="off" placeholder="Search"/>
+            <label for="search-box"><span class="glyphicon glyphicon-search search-icon"></span></label>
+            <input type="submit" id="search-submit"/>
+        </form>
+    </div>
+
+    <div id="nav-bars" class="navbar-item">
+        <a id="navbar-icon">
+           <div id="nav-bars-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+        </div>
+        </a>
+    </div>
+</div>
+<div id="mobile-nav">
+    <div id="mobile-nav-content">
+        <ul class="mobile-nav-nested mobile-nav-home mobile-nav-current">
+            <li data-target="shop">Shop<i class="fa fa-chevron-right"></i> </li>
+            <li>Account</li>
+            <li>Basket</li>
+            <li><span class="fa fa-search"></span><input id="mobile-nav-search" placeholder="Search" type="text"/></li>
+        </ul>
+        <ul class="mobile-nav-nested mobile-nav-shop">
+            <li data-target="back" class="mobile-nav-greyed"><span class="fa fa-chevron-left"></span></li>
+            <li>Computing<i class="fa fa-chevron-right"></i> </li>
+            <li>TV & Home Cinema<i class="fa fa-chevron-right"></i> </li>
+            <li>Gaming<i class="fa fa-chevron-right"></i> </li>
+            <li>Mobile Phones<i class="fa fa-chevron-right"></i> </li>
+            <li>Camera<i class="fa fa-chevron-right"></i> </li>
+        </ul>
+        <ul id="mobile-nav" class="mobile-nav-nested">
+            <li>Shop<i class="fa fa-chevron-right"></i> </li>
+            <li>Account</li>
+            <li>Basket</li>
+        </ul>
+    </div>
+</div>
