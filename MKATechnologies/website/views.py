@@ -6,6 +6,15 @@ from django.http import HttpResponse
 def index(request):
     return render(request, 'website/index.html')
 
-
 def department(request):
     return render(request, 'website/department.html')
+
+def search(request):
+    return render(request, 'website/search.html')
+
+def product(request):
+    return render(request, 'website/product.html')
+
+def account(request):
+    context = {'account': True}
+    return render(request, 'website/account.html', context)

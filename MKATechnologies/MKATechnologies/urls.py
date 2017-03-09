@@ -23,4 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index),
     url(r'^' + departments_re + '/$', views.department),
+    url(r'^search/$', views.search),
+    url(r'^product/$', views.product),
+    url(r'^account/$', views.account),
 ]
