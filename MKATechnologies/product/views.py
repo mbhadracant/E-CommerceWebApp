@@ -6,6 +6,20 @@ from .serializers import  ProductSerializer
 from .serializers import OrderSerializer
 from rest_framework.response import Response
 
+class search(APIView):
+    def get(self, request):
+        allProducts = Products.objects.all()
+        if request.GET.get('category') is not None:
+            allProducts = allProducts.filter(product_category=request.GET.get('category'))
+        if request.GET.get('brand') is not None:
+            allProducts = allProducts.filter(product_make=request.GET.get('brand'))
+        if request.GET.get('subcategory') is not None:
+            allProducts = allProducts.filter(product_subcategory=request.GET.get('subcategory'))
+        if request.GET.get('productName') is not None:
+            allProducts = allProducts.filter(product_name=request.GET.get('productName'))
+        serializer = ProductSerializer(allProducts, many=True)
+        return Response(serializer.data)
+
 #Gets all the products
 class ProductList(APIView):
     def get(self, request):

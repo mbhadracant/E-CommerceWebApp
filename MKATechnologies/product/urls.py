@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^product/brand$', views.ProductBrand.as_view()),
     url(r'^order/$', views.OrderList.as_view()),
     url(r'^order/order_id$', views.OrderDetails.as_view()),
+    url(r'^search/$', views.search.as_view()),
 ]

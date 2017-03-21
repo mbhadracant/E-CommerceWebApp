@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^search/$', views.search),
     url(r'^product/$', views.product),
     url(r'^account/$', views.account),
+#     url(r'^account/$', include('accounts.urls')),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
