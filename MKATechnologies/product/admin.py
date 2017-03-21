@@ -5,5 +5,4 @@ from .models import Orders
 # Register your models here.
 
 admin.site.register(Products)
-admin.site.register(Users)
 admin.site.register(Orders)

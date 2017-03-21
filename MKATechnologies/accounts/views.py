@@ -6,7 +6,7 @@ from accounts.forms import (
     RegistrationForm,
     EditProfileForm
 )
-
+from models import Users
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -21,6 +21,16 @@ from django.contrib.auth.decorators import login_required
 #     context = {}
 # 
 #     return HttpResponse(template.render(context, request))
+
+def checklogin(request):
+    email = request.GET.get('email')
+    password = request.GET.get('password')
+
+    try:
+        users = Users.objects.get(email=email, password=password)
+        return HttpResponse("Logged In!")
+    except Users.DoesNotExist:
+        return HttpResponse("Incorrect")
 
 def register(request):
     if request.method =='POST':
