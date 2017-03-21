@@ -52,31 +52,99 @@
   </li>
 </ul>
 
-<div id="main-content" class="container">
-   <div class="row">
-       <div class="col col-span-3 shadow">
-           <h4><b>RAZER BLADE</b></h4>
-           <img class="promo-image" src="{% static 'images/razer-blade-2.png' %}">
-           <div class='box foo'>
-                VIEW
-            </div>
-       </div>
-       <div class="col col-span-3 shadow">
-           <h4><b>SAMSUNG UHD MONITOR</b></h4>
-           <img class="promo-image" src="{% static 'images/samsung-uhd-monitor.jpeg' %}">
-           <div class='box foo'>
-                VIEW
-            </div>
-       </div>
-       <div class="col col-span-3 shadow">
-           <h4><b>DELL XPS TOWER</b></h4>
-           <img class="promo-image" src="{% static 'images/dell-xps-tower.png' %}">
-           <div class='box foo'>
-                VIEW
-            </div>
-       </div>
-   </div>
+<div class="header">
+    <h2>AVAILABLE PRODUCTS IN COMPUTING</h2>
 </div>
+
+<div id="scroll-nav">
+    <div class="left-caret">
+        <span class="fa fa-angle-left"></span>
+    </div>
+    <div id="nav-scroll-content">
+    <div>
+        <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    <div>
+         <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    <div>
+         <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    <div>
+         <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    <div>
+         <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    <div>
+        <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    <div>
+         <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    <div>
+         <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    <div>
+         <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    <div>
+         <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    <div>
+         <div>
+            <h4><b>Razer Blade</b></h4>
+            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <div class="test-button">VIEW</div>
+        </div>
+    </div>
+    </div>
+    <div class="right-caret">
+        <span class="fa fa-angle-right"></span>
+    </div>
+
+</div>
+
 {% include "website/shared/footer.html" %}
 <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
@@ -94,6 +162,15 @@
 
     });
 
+    $(".right-caret").click(function() {
+        $('#nav-scroll-content').stop();
+        $('#nav-scroll-content').animate({scrollLeft:  $('#nav-scroll-content').scrollLeft() + $(window).width()/2}, 500);
+    });
+
+    $(".left-caret").click(function() {
+        $('#nav-scroll-content').stop();
+        $('#nav-scroll-content').animate({scrollLeft:  $('#nav-scroll-content').scrollLeft() - $(window).width()/2}, 500);
+    });
 
     var onResizeDepartment = function() {
             var width = $(window).width();

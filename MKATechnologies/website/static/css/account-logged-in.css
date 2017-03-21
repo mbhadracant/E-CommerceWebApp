@@ -1,0 +1,373 @@
+html, body {
+    background: rgb(245, 245, 245);
+}
+
+#search {
+    margin-top: 0px;
+}
+
+#navbar-bg {
+    background: black;
+    height: 50px;
+    width: 100%;
+}
+
+main {
+    min-width: 320px;
+    max-width: 100%;
+    padding: 50px;
+    margin: 0 auto;
+    background: #fff;
+}
+
+main > input {
+    display: none;
+}
+
+section {
+    display: none;
+    padding: 50px;
+    padding-left:0px;
+    padding-right:0px;
+    border-top: 1px solid #ddd;
+}
+
+main > label {
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 15px 25px;
+    font-weight: 600;
+    text-align: center;
+    color: #bbb;
+    border: 1px solid transparent;
+}
+
+main label > i {
+    margin-right: 10px;
+}
+
+main label:hover {
+    color: #888;
+    cursor: pointer;
+}
+
+main input:checked + label {
+    color: #555;
+    border: 1px solid #ddd;
+    border-top: 2px solid grey;
+    border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3 {
+    display: block;
+}
+
+
+
+.order-block {
+    border: 1px solid lightgrey;
+    border-radius: 20px;
+}
+
+.order-header {
+    width: 100%;
+    height: 70px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background: rgb(247, 247, 247);
+    padding: 15px;
+}
+
+.order-header div span {
+    color: rgb(130, 130, 130);
+}
+
+.order-placed {
+    float: left;
+}
+
+.order-dispatched {
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.order-footer {
+    height: 50px;
+    width: 100%;
+    padding: 5px;
+    margin-left: 10px;
+    font-size: 24px;
+    color: rgb(170, 50, 20);
+}
+
+.order-item {
+    display: flex;
+}
+
+.order-item > img {
+    width: auto;
+
+}
+
+.order-product-name {
+    font-size: 16px;
+}
+
+.order-item > div {
+    padding: 20px;
+}
+
+.order-product-name {
+    font-weight: bold;
+}
+
+.order-product-price {
+    color: darkgreen;
+}
+
+.order-block {
+    margin:20px;
+    margin-bottom:50px;
+}
+
+.payment-block {
+    padding:20px;
+    border:1px solid lightgrey;
+    margin-top:20px;
+    height:200px;
+    width:100%;
+}
+
+
+.payment-block > div {
+    width:100%;
+    margin: 5px;
+
+}
+
+.payment-labels {
+    text-align: right;
+    float:left;
+    font-weight:bolder;
+}
+
+.payment-fields {
+    margin-left:10px;
+    float:left;
+    color:rgb(60,60,60);
+}
+
+
+.payment-block .icons .fa-close {
+    float:right;
+}
+
+
+@media screen and (max-width: 600px) {
+    main > label {
+        font-size: 0px;
+    }
+
+    main > label > .fa {
+        font-size: 14px;
+    }
+
+    .order-placed, .order-dispatched {
+        display: none;
+    }
+
+    .order-id {
+        margin-top: 0px;
+        float:left;
+    }
+
+    .order-item > img {
+        height: 50px;
+        margin-top:20px;
+    }
+
+    .payment-labels > p, .payment-fields > p {
+    font-size:12px;
+    }
+
+    .payment-block > div > i {
+    font-size:16px;
+    }
+
+}
+
+@media screen and (min-width: 600px) {
+    main > label {
+        font-size: 14px;
+    }
+
+    main > label > .fa {
+        font-size: 14px;
+    }
+
+    .order-placed, .order-dispatched {
+        display: block;
+    }
+
+    .order-id {
+        margin-top: -40px;
+        float:right;
+    }
+
+    .order-item > img {
+        height: 100px;
+        margin-top:0px;
+    }
+
+    .payment-labels > p, .payment-fields > p {
+    font-size:16px;
+    }
+
+    .payment-block > div > i {
+    font-size:24px;
+    }
+
+}
+
+.payment-form {
+    width:300px;
+}
+
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 1px solid gainsboro;
+}
+
+
+fieldset input {
+  display: block;
+  width: 100%;
+  height: 3em;
+  padding: 16px 8px;
+  border: 0;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.97);
+  color: #212121;
+  outline: 0;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-label h5 {
+    text-align: center;
+}
+
+.form-label h5:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.form-label fieldset {
+  position: relative;
+}
+.form-label fieldset:first-child input {
+  border-radius: 4px 4px 0 0;
+}
+.form-label fieldset:last-child input {
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
+}
+.form-label fieldset + fieldset {
+  border-top: 1px solid #ddd;
+}
+.form-label label {
+  position: absolute;
+  top: 15px;
+  left: 8px;
+  color: #909090;
+    user-select: none;
+        -moz-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -o-user-select: none;
+  -webkit-transform: translate3d(0px, 0px, 0);
+          transform: translate3d(0px, 0px, 0);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+    cursor: text;
+}
+
+.form-label label:hover {
+    cursor:text;
+}
+
+.form-css-label input[data-empty="false"], .form-css-label input:valid, .form-css-label input:focus {
+  padding: 22px 8px 10px;
+}
+.form-css-label input:focus {
+  outline: 0;
+}
+.form-css-label input[data-empty="false"] + label, .form-css-label input:valid + label, .form-css-label input:focus + label {
+  color: lightgrey;
+  font-weight: 700;
+  font-size: 10px;
+  -webkit-transform: translate3d(0, -15px, 0);
+          transform: translate3d(0, -15px, 0);
+}
+
+.form-js-label input[data-empty="false"], .form-js-label input:focus {
+  padding: 25px 10px 10px;
+}
+.form-js-label input:focus {
+  outline: 0;
+  background: white;
+}
+.form-js-label input[data-empty="false"] + label, .form-js-label input:focus + label {
+  color: #5856D6;
+  font-weight: 700;
+  font-size: 12px;
+  -webkit-transform: translate3d(0, -15px, 0);
+          transform: translate3d(0, -15px, 0);
+}
+
+.payment-form button {
+    background:white;
+}
+
+.payment-form {
+    padding:20px;
+    display:none;
+}
+
+#account-content {
+    width:400px;
+}
+
+#account-content input {
+    display:block;
+    margin:5px;
+}
+
+#account-content label {
+    font-size:16px;
+    font-weight: bolder;
+    margin-left:5px;
+}
+
+#account-content button {
+    background:white;
+}
+
+#account-content button {
+    background:white;
+}
+
+#account-content form button {
+    display:none;
+}

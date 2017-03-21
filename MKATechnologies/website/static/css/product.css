@@ -159,6 +159,10 @@ hr {
 }
 
 
+#product-details h4 {
+    line-height:25px;
+}
+
 
 .alt-images {
     display: flex;
