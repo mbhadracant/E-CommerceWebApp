@@ -614,6 +614,7 @@ a:hover,a:focus {
     margin-top: 7px;
     position:absolute;
     right:175px;
+    z-index:0;
 }
 
 
@@ -621,6 +622,10 @@ a:hover,a:focus {
     float: right;
     margin-right:20px;
 
+}
+
+#account {
+    z-index:1;
 }
 
 #nav-bars {

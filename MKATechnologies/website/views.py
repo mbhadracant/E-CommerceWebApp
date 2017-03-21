@@ -16,5 +16,9 @@ def product(request):
     return render(request, 'website/product.html')
 
 def account(request):
-    context = {'account': True}
-    return render(request, 'website/account.html', context)
+    context = {'account': {'name' : 'Mayur'}}
+    #context = None
+    if context is None:
+        return render(request, 'website/account.html', context)
+    else:
+        return render(request, 'website/account-logged-in.html', context)

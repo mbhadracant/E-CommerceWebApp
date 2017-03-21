@@ -12,10 +12,7 @@
 <body>
 {% include "website/shared/navbar.html" %}
 <div id="navbar-bg"></div>
-{% if account is None %}
     <div class="container">
-        <!--
-            -->
             <div id="account-content">
             <div id="tabs">
                 <div class="tab-item"><b>LOG IN</b></div>
@@ -66,11 +63,7 @@
         <!-- "><div"s are required to avoid spaces between display: inline-block elements. http://css-tricks.com/fighting-the-space-between-inline-block-elements/ -->
     </div>
     </div>
-{% else %}
-<div id="account-info">
 
-</div>
-{% endif %}
 {% include "website/shared/footer.html" %}
 <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
