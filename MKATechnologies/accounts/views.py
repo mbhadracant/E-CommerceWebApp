@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import loader
 from accounts.forms import (
@@ -13,14 +13,14 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 
 
-def home(request):
-    return render(request, 'accounts/home.html')
-
-def index(request):
-    template = loader.get_template('accounts/index.html')
-    context = {}
-
-    return HttpResponse(template.render(context, request))
+# def home(request):
+#     return render(request, 'accounts/home.html')
+# 
+# def index(request):
+#     template = loader.get_template('accounts/index.html')
+#     context = {}
+# 
+#     return HttpResponse(template.render(context, request))
 
 def register(request):
     if request.method =='POST':
@@ -34,9 +34,9 @@ def register(request):
         args = {'form': form}
         return render(request, 'accounts/reg_form.html', args)
 
-def view_profile(request):
-    args = {'user': request.user}
-    return render(request, 'accounts/profile.html', args)
+# def view_profile(request):
+#     args = {'user': request.user}
+#     return render(request, 'accounts/profile.html', args)
 
 def edit_profile(request):
     if request.method == 'POST':

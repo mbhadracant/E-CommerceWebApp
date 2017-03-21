@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
-
 from django.db import models
+from accounts.models import Users
 
 class Products(models.Model):
     product_id = models.AutoField(primary_key = True)
@@ -19,18 +19,6 @@ class Product_option(models.Model):
     product_id = models.ForeignKey(Products, on_delete=models.CASCADE)
     option = models.CharField(max_length=200)
     price = models.IntegerField()
-
-class Users(models.Model):
-    username = models.CharField(max_length=200, primary_key = True)
-    password = models.CharField(max_length=200)
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
-    email = models.CharField(max_length=200)
-    phone_number = models.IntegerField(max_length=200)
-    street_address = models.CharField(max_length=200)
-    city = models.CharField(max_length=200)
-    post_code = models.CharField(max_length=200)
-    country = models.CharField(max_length=200)
 
 class Orders(models.Model):
     order_id = models.AutoField(primary_key=True)
