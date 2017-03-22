@@ -9,7 +9,6 @@ class Products(models.Model):
     product_category = models.CharField(max_length=200)
     product_subcategory = models.CharField(max_length=200)
     price = models.CharField(max_length=200)
-    colour = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
     image_link = models.CharField(max_length=200)
     quantity = models.CharField(max_length=200)
