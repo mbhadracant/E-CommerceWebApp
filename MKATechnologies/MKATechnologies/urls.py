@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^search/$', views.search),
     url(r'^product/$', views.product),
     url(r'^account/$', views.account),
+    url(r'^basket/$', views.basket),
+    url(r'^checkout/$', views.checkout),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

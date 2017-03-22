@@ -17,8 +17,14 @@ def product(request):
 
 def account(request):
     context = {'account': {'name' : 'Mayur'}}
-    #context = None
+
     if context is None:
         return render(request, 'website/account.html', context)
     else:
         return render(request, 'website/account-logged-in.html', context)
+
+def checkout(request):
+    return render(request, 'website/checkout.html')
+
+def basket(request):
+    return render(request, 'website/basket.html')
