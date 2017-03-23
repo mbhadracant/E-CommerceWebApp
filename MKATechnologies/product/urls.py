@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^order/$', views.OrderList.as_view()),
     url(r'^order/order_id$', views.OrderDetails.as_view()),
     url(r'^order/user_id$', views.UserOrderDetails.as_view()),
-    url(r'^account/user_id$', views.UserDetails.as_view()),
+    # url(r'^account/user_id$', views.UserDetails.as_view()),
     url(r'^load/$', views.load.as_view()),
+    url(r'^loadCategory/$', views.loadCategory.as_view()),
 ]
