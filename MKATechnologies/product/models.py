@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
-from accounts.models import Users
+from accounts.models import User
 
 class Product(models.Model):
     product_id = models.AutoField(primary_key = True)
@@ -16,7 +16,7 @@ class Product(models.Model):
 
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     product_id= models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(max_length=200)
     total = models.FloatField(max_length=200)
