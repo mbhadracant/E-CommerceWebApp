@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import Products
-from .models import Orders
-from .models import Users
+from .models import Product
+from .models import Order
+from .models import User
+from accounts.serializer import UserSerializer
 
 class ProductSerializer(serializers.Serializer):
     product_id = serializers.IntegerField(read_only=True)
@@ -13,21 +14,25 @@ class ProductSerializer(serializers.Serializer):
     quantity = serializers.IntegerField()
 
     def create(self, validated_data):
-        return Products.objects.create(**validated_data)
+        return Product.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.save()
         return instance
 
-class UserSerializer(serializers.Serializer):
-    username = serializers.CharField(read_only = True)
-    first_name = serializers.CharField()
-    last_name = serializers.CharField()
-    email = serializers.CharField()
-    phone_number = serializers.IntegerField()
+class OrderSerializer(serializers.Serializer):
+    order_id = serializers.IntegerField()
+    product_id = ProductSerializer()
+    user_id = UserSerializer()
+    quantity = serializers.IntegerField()
+    total = serializers.IntegerField()
+
+    class Meta:
+        model = Order
+        fields = ('order_id', 'product_id', 'user_id')
 
     def create(self, validated_data):
-        return Users.objects.create(**validated_data)
+        return Order.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.save()
