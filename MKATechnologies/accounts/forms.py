@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from accounts.models import Users
+from accounts.models import User
 
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     class Meta:
-        model = Users
+        model = User
         fields = (
             'username',
             'password',
@@ -44,7 +44,7 @@ class EditProfileForm(UserChangeForm):
     template_name='/something/else'
 
     class Meta:
-        model = Users
+        model = User
         fields = (
             'username',
             'password',
