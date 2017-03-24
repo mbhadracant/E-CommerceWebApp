@@ -67,7 +67,12 @@
     text-transform: uppercase;
 }
 
-.cateogires-item h6:hover {
+.cateogires-item a {
+    margin-top:8px;
+    display:block;
+    font-size:12px;
+}
+.cateogires-item a:hover {
     color:skyblue;
     cursor: pointer;
 }
@@ -141,7 +146,7 @@
     border-radius:10px;
     width:200px;
     text-align:center;
-    height:225px;
+    height:275px;
     background:white;
     padding:5px;
     box-shadow: 0px 0px 50px 1px rgba(100,100,100,0.2);

@@ -21,12 +21,13 @@ from product.models import Category
 from accounts import views as accountviews
 
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index),
     url(r'^api/', include('product.urls')),
     url(r'^search/$', views.search),
-    url(r'^product/$', views.product),
+    url(r'^product/([0-9]{1,4})/$', views.product),
     url(r'^account/$', views.account),
     url(r'^account/(?P<error>\w+)$', views.account),
     url(r'^basket/$', views.basket),

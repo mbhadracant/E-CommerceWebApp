@@ -4,9 +4,12 @@ from accounts.models import User
 
 
 def run():
-    users = User.objects.all()
+    category = "Computing"
 
-    for user in users:
-        print(user.first_name)
+
+    products = Product.objects.all().filter(product_category__contains="TV & Home cinema")
+
+    for p in products:
+        print(p.product_category)
 
 

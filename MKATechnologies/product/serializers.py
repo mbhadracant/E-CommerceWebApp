@@ -7,11 +7,11 @@ from accounts.serializer import UserSerializer
 class ProductSerializer(serializers.Serializer):
     product_id = serializers.IntegerField(read_only=True)
     product_name = serializers.CharField()
+    product_short_name = serializers.CharField()
+    image_link = serializers.CharField()
     product_category = serializers.CharField()
     product_make = serializers.CharField()
     price = serializers.IntegerField()
-    colour = serializers.CharField()
-    quantity = serializers.IntegerField()
 
     def create(self, validated_data):
         return Product.objects.create(**validated_data)
@@ -37,3 +37,6 @@ class OrderSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.save()
         return instance
+
+class SubcategorySerializer(serializers.Serializer):
+    name = serializers.CharField()

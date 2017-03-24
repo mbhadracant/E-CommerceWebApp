@@ -12,4 +12,9 @@ urlpatterns = [
     # url(r'^account/user_id$', views.UserDetails.as_view()),
     url(r'^load/$', views.load.as_view()),
     url(r'^loadCategory/$', views.loadCategory.as_view()),
+    url(r'^subcategories/$', views.get_subcategories_given_categories),
+    url(r'^getproducts/$', views.get_products),
+    url(r'^addproduct/$', views.add_product),
+    url(r'^getbasket/$', views.get_basket),
+    url(r'^basket/$', views.basket),
 ]

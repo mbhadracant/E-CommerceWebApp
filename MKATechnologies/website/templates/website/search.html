@@ -29,11 +29,10 @@
                         </div>
                     </div>
                     <div id="category-filter" class="panel-collapse collapse">
-                        <div class="filter-item filter-selected">Computing</div>
-                        <div class="filter-item">TV & Home Cinema</div>
-                        <div class="filter-item">Gaming</div>
-                        <div class="filter-item">Mobile Phones</div>
-                        <div class="filter-item">Camera</div>
+                        {% for category in categories %}
+                            <div class="filter-item">{{ category.name }}</div>
+                        {% endfor %}
+
                     </div>
                 </div>
                 <div class="panel panel-default">
@@ -47,7 +46,6 @@
                         </div>
                     </div>
                     <div id="sub-category-filter" class="panel-collapse collapse">
-                        <div class="filter-item filter-selected">Computing</div>
 
                     </div>
                 </div>
@@ -74,93 +72,7 @@
 
     <div id="products">
         <div id="products-content">
-            <div class="product">
-                <h4><b>RAZER BLADE</b></h4>
-                <img class="promo-image" src="{% static 'images/razer-blade-2.png' %}">
-                <ul>
-                    <li>256GB SDD</li>
-                    <li>RETINA DISPLAY</li>
-                    <li>FANCY</li>
-                    <li>FANCY</li>
-                    <li>FANCY</li>
-                </ul>
-                <div class='view-btn box foo'>
-                    VIEW
-                </div>
-            </div>
-            <div class="product">
-                <h4><b>RAZER BLADE</b></h4>
-                <img class="promo-image" src="{% static 'images/razer-blade-2.png' %}">
-                <ul>
-                    <li>256GB SDD</li>
-                    <li>RETINA DISPLAY</li>
-                    <li>FANCY</li>
-                </ul>
-                <div class='view-btn box foo'>
-                    VIEW
-                </div>
-            </div>
-            <div class="product">
-                <h4><b>RAZER BLADE</b></h4>
-                <img class="promo-image" src="{% static 'images/razer-blade-2.png' %}">
-                <ul>
-                    <li>256GB SDD</li>
-                    <li>RETINA DISPLAY</li>
-                    <li>FANCY</li>
-                </ul>
-                <div class='view-btn box foo'>
-                    VIEW
-                </div>
-            </div>
-            <div class="product">
-                <h4><b>RAZER BLADE</b></h4>
-                <img class="promo-image" src="{% static 'images/razer-blade-2.png' %}">
-                <ul>
-                    <li>256GB SDD</li>
-                    <li>RETINA DISPLAY</li>
-                    <li>FANCY</li>
-                </ul>
-                <div class='view-btn box foo'>
-                    VIEW
-                </div>
-            </div>
-            <div class="product">
-                <h4><b>RAZER BLADE</b></h4>
-                <img class="promo-image" src="{% static 'images/razer-blade-2.png' %}">
-                <ul>
-                    <li>256GB SDD</li>
-                    <li>RETINA DISPLAY</li>
-                    <li>FANCY</li>
-                </ul>
-                <div class='view-btn box foo'>
-                    VIEW
-                </div>
-            </div>
-            <div class="product">
-                <h4><b>RAZER BLADE</b></h4>
-                <img class="promo-image" src="{% static 'images/razer-blade-2.png' %}">
-                <ul>
-                    <li>256GB SDD</li>
-                    <li>RETINA DISPLAY</li>
-                    <li>FANCY</li>
 
-                </ul>
-                <div class='view-btn box foo'>
-                    VIEW
-                </div>
-            </div>
-            <div class="product">
-                <h4><b>RAZER BLADE</b></h4>
-                <img class="promo-image" src="{% static 'images/razer-blade-2.png' %}">
-                <ul>
-                    <li>256GB SDD</li>
-                    <li>RETINA DISPLAY</li>
-                    <li>FANCY</li>
-                </ul>
-                <div class='view-btn box foo'>
-                    VIEW
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -169,7 +81,121 @@
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
 <script>
+
+
+
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+}
+    var category = "";
+    var subcategory = "";
+
+    var setSubcategories = function() {
+        $.ajax({url: "/api/subcategories",
+            type: 'GET',
+            data: {'category': category},
+            dataType:"JSON",
+            success: function(result){
+                var container = $('#sub-category-filter');
+                $(container).empty();
+                result['data'].forEach(function(element) {
+                    var div = $("<div>");
+                    $(div).addClass("filter-item");
+                    $(div).html(element)
+                    if(element == subcategory) {
+                        $(div).addClass("filter-selected")
+                    }
+                    $(container).append(div);
+                });
+
+                $("#sub-category-filter .filter-item").click(function() {
+            if($(this).hasClass("filter-selected")) {
+                $(this).removeClass("filter-selected")
+                subcategory = ""
+                setProducts()
+            } else {
+                $("#sub-category-filter .filter-item").removeClass("filter-selected")
+                $(this).addClass("filter-selected")
+                subcategory = $(this).html()
+                setProducts()
+            }
+        });
+        }});
+
+
+    }
+
+    var setProducts = function() {
+        $.ajax({url: "/api/getproducts",
+            type: 'GET',
+            data: {'category': category, 'subcategory': subcategory},
+            dataType:"JSON",
+            contentType:"application/json",
+            success: function(result){
+
+                var container = $("#products-content");
+                $(container).empty()
+
+               result.forEach(function(element) {
+                    var product = $("<div>")
+                   $(product).addClass("product")
+                   var name = $("<h4>")
+                   $(name).html(element.product_short_name)
+                   $(product).append(name)
+                    var img = $("<img>")
+                   $(img).addClass("promo-image")
+                   $(img).attr("src",element.image_link)
+                   $(product).append(img)
+
+                   var price = $("<p>")
+                   $(price).html("£" + element.price);
+                    $(product).append(price)
+                   var btn = $("<div>")
+
+                   $(btn).addClass("view-btn")
+                   $(btn).addClass("box")
+                   $(btn).addClass("foo")
+                   $(btn).html("VIEW")
+                   $(product).append(btn)
+
+                   $(container).append(product)
+
+               });
+        }});
+    }
+
+
     $(document).ready(function () {
+        subcategory = getURLParameter('subcategory');
+        category = getURLParameter('category');
+
+        $("#category-filter div").each(function() {
+            if($(this).html() == category) {
+                $(this).addClass("filter-selected")
+            }
+        });
+
+        setSubcategories(category)
+        setProducts(category, subcategory)
+
+
+        $("#category-filter .filter-item").click(function() {
+
+            if($(this).hasClass("filter-selected")) {
+                $(this).removeClass("filter-selected")
+                $("#sub-category-filter").empty()
+                category = ""
+                subcategory = ""
+                setProducts()
+            } else {
+                $("#category-filter .filter-item").removeClass("filter-selected")
+                $(this).addClass("filter-selected")
+                setSubcategories($(this).html())
+                category = $(this).html()
+                setProducts()
+            }
+        });
+
 
 
         onResizeSearch();

@@ -31,29 +31,18 @@
                 </div>
             </div>
             <div id="product-details" class="col-sm-5 col-centered">
-                <h2><b>Razer Blade</b></h2>
+                <h2><b>{{ product.product_name }}</b></h2>
                 <hr>
-                <h4>The new 14” Razer Blade strikes the perfect balance between power and portability.
-                    Experience streamlined performance with the latest 7th Gen Intel® Core™ i7 Quad Core processor.
-                    Get faster, smoother and more detailed gameplay with the powerful performance of the NVIDIA® GeForce® GTX 1060 graphics.
-                    Choose from two great display options, Full HD or 4K UHD, or connect a VR headset for an even more immersive gaming experience.
-                    Get the best-in-class performance with 16GB of DDR4 dual-channel memory,
-                    PCIe-based SSD storage up to 1TB, and Killer Networking technology.
-                    All this power packed into a thin and light 0.70”
-                    unibody aluminum chassis is what makes the Razer Blade the best in its class.</h4>
+                <h4>{{ product.features }}</h4>
                 <hr>
                 <ul>
-                    <li>14" IPS FULL HD Matte</li>
-                    <li>NVIDIA GEFORCE GTX 1060</li>
-                    <li>INTEL I7</li>
-                    <li>256GB SSD</li>
-                    <li>16GB RAM (2400 Mhz)</li>
+                    <li>{{ product.description }}</li>
                 </ul>
                 <hr>
-                <h3><b>£1800</b></h3>
+                <h3><b>£{{ product.price }}</b></h3>
                 <hr>
                 <div id="quantity">
-                    <h4>Quantity: <select class="form-control">
+                    <h4>Quantity: <select id="quantity" class="form-control">
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -77,8 +66,13 @@
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/lightbox.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
+
 <script>
     $(document).ready(function() {
+
+
+
         $('.alt-images img').click(function(){
             var mainImg = $('.main-image img')
             var mainImgSrc = $(mainImg).attr("src")
@@ -93,6 +87,35 @@
 
             }
 
+        });
+
+        $("#btn-add-basket").click(function () {
+            var quantity = $('#quantity').find(":selected").text();
+            var id = {{ product_id }};
+
+            var csrftoken = $.cookie('csrftoken');
+
+                function csrfSafeMethod(method) {
+                    // these HTTP methods do not require CSRF protection
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                }
+
+                $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+
+            console.log(id)
+
+            $.ajax({url: "/api/addproduct/",
+            type: 'POST',
+            data: {'id': id, 'quantity': quantity},
+            success: function(result){
+                console.log(result)
+            }});
         });
     });
 </script>

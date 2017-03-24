@@ -19,7 +19,7 @@
             {% with 'images/subcategory-icons/'|add:category_url_name|add:'/'|add:sub.subcategory_image as image_static %}
                  <img style="width: auto;height:40px;" src="{% static image_static %}">
             {% endwith %}
-            <h6>{{ sub.name }}</h6>
+            <a href="/search?subcategory={{ sub.name }}&category={{ category_full_name }}">{{ sub.name }}</a>
             </div>
         {% endfor %}
 
@@ -51,83 +51,16 @@
         <span class="fa fa-angle-left"></span>
     </div>
     <div id="nav-scroll-content">
+    {% for product in products %}
     <div>
         <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
+            <h4><b>{{ product.product_short_name }}</b></h4>
+            <img  src="{{ product.image_link }}">
+            <br>
             <div class="test-button">VIEW</div>
         </div>
     </div>
-    <div>
-         <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
-            <div class="test-button">VIEW</div>
-        </div>
-    </div>
-    <div>
-         <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
-            <div class="test-button">VIEW</div>
-        </div>
-    </div>
-    <div>
-         <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
-            <div class="test-button">VIEW</div>
-        </div>
-    </div>
-    <div>
-         <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
-            <div class="test-button">VIEW</div>
-        </div>
-    </div>
-    <div>
-        <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
-            <div class="test-button">VIEW</div>
-        </div>
-    </div>
-    <div>
-         <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
-            <div class="test-button">VIEW</div>
-        </div>
-    </div>
-    <div>
-         <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
-            <div class="test-button">VIEW</div>
-        </div>
-    </div>
-    <div>
-         <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
-            <div class="test-button">VIEW</div>
-        </div>
-    </div>
-    <div>
-         <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
-            <div class="test-button">VIEW</div>
-        </div>
-    </div>
-    <div>
-         <div>
-            <h4><b>Razer Blade</b></h4>
-            <img  src="{% static 'images/razer-blade-2.png' %}">
-            <div class="test-button">VIEW</div>
-        </div>
-    </div>
+    {% endfor %}
     </div>
     <div class="right-caret">
         <span class="fa fa-angle-right"></span>

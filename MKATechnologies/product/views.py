@@ -1,29 +1,29 @@
 import csv
-
+import json
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Product
 from .models import Category
 from .models import Subcategory
 from .models import Order
-from .serializers import  ProductSerializer
+from .serializers import  ProductSerializer, SubcategorySerializer
 from .serializers import  OrderSerializer
 from rest_framework.response import Response
+from django.http import Http404, HttpResponse
 import os
 
-class search(APIView):
-    def get(self, request):
+def get_products(request):
         allProducts = Product.objects.all()
         if request.GET.get('category') is not None:
-            allProducts = allProducts.filter(product_category=request.GET.get('category'))
+            allProducts = allProducts.filter(product_category__contains=request.GET.get('category'))
         if request.GET.get('brand') is not None:
-            allProducts = allProducts.filter(product_make=request.GET.get('brand'))
+            allProducts = allProducts.filter(product_make__contains=request.GET.get('brand'))
         if request.GET.get('subcategory') is not None:
-            allProducts = allProducts.filter(product_subcategory=request.GET.get('subcategory'))
+            allProducts = allProducts.filter(product_subcategory__contains=request.GET.get('subcategory'))
         if request.GET.get('productName') is not None:
-            allProducts = allProducts.filter(product_name=request.GET.get('productName'))
+            allProducts = allProducts.filter(product_name__contains=request.GET.get('productName'))
         serializer = ProductSerializer(allProducts, many=True)
-        return Response(serializer.data)
+        return HttpResponse(json.dumps(serializer.data))
 
 #Gets all the products
 class ProductList(APIView):
@@ -101,16 +101,56 @@ class loadCategory(APIView):
 class load(APIView):
     def get(self, request):
         BASE = os.path.dirname(os.path.abspath(__file__))
+        Product.objects.all().delete()
         f = open(os.path.join(BASE, "data.txt"))
         for record in f:
             data = record.split(';')
             _, created = Product.objects.get_or_create(
-                product_name=data[0],
-                product_make=data[1],
+                product_name=data[1],
+                product_short_name= data[0],
+                product_make=data[4],
                 product_category=data[2],
                 product_subcategory=data[3],
-                price=data[4],
-                description=data[5],
-                image_link=data[6],
+                price=data[5],
+                description=data[6],
+                features=data[7],
+                image_link=data[8],
             )
         return Response("")
+
+
+
+def get_subcategories_given_categories(request):
+    if request.method == 'GET' and request.is_ajax():
+        category = request.GET.get("category")
+        categorydb = Category.objects.filter(name__contains=category)
+        subcategories = Subcategory.objects.all().filter(category_id=categorydb)
+        subs = []
+        for sub in subcategories:
+            subs.append(sub.name)
+
+        data = {'data': subs}
+        return HttpResponse(json.dumps(data))
+
+    raise Http404
+
+def add_product(request):
+    if(request.is_ajax() and request.method == 'POST'):
+        id = request.POST.get("id")
+        quantity = request.POST.get("quantity")
+        list = request.session['basket']
+        list.append((id,quantity))
+        request.session['basket'] = list
+        print(request.session.get("basket"))
+        return HttpResponse("added")
+    raise Http404
+
+def get_basket(request):
+    if(request.is_ajax()):
+        return HttpResponse(len(request.session.get("basket")))
+    raise Http404
+
+def basket(request):
+    request.session['basket'] = []
+
+    return HttpResponse("basket resetted")
