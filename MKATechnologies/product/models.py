@@ -36,8 +36,14 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
     url_name = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.name
+
 class Subcategory(models.Model):
     subcategory_id = models.AutoField(primary_key=True)
     category_id = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=200)
     subcategory_image = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name

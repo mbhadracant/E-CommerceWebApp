@@ -17,19 +17,32 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from django.conf.urls import url, include
 from django.contrib import admin
 from website import views
+from product.models import Category
+from accounts import views as accountviews
 
-departments = ['computing','tv-and-home-cinema','gaming','mobile-phones','camera']
-departments_re = '(?:' + '|'.join(departments) + ')'
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index),
     url(r'^api/', include('product.urls')),
-    url(r'^' + departments_re + '/$', views.department),
     url(r'^search/$', views.search),
     url(r'^product/$', views.product),
     url(r'^account/$', views.account),
+    url(r'^account/(?P<error>\w+)$', views.account),
     url(r'^basket/$', views.basket),
     url(r'^checkout/$', views.checkout),
+    url(r'^checkout/1/$', views.checkout_delivery),
+    url(r'^checkout/2/$', views.checkout_payment),
+    url(r'^checkout/3/$', views.checkout_confirm),
+    url(r'^checkout/4/$', views.checkout_success),
+    url(r'^account/login/$', accountviews.login),
+
 ]
+
+categories = Category.objects.all()
+
+for category in categories:
+    urlpatterns.append(url(r'^(?P<url_name>(' + category.url_name + '))/$', views.department))
+
 
 urlpatterns = format_suffix_patterns(urlpatterns)

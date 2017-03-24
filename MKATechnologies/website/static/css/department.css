@@ -107,7 +107,7 @@
 }
 
 #nav-scroll-content {
-    overflow-x:auto;
+    overflow-x:hidden;
     background:whitesmoke;
     display:flex;
     padding:50px;
@@ -171,4 +171,8 @@
     padding:10px;
      color:grey;
     cursor:pointer;
+}
+
+.header {
+    text-transform: uppercase;
 }

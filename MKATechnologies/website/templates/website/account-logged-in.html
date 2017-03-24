@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
 </head>
 <body>
-{% include "website/shared/navbar.html" %}
+{% include "website/shared/navbar.html" with categories=categories%}
 <div id="navbar-bg"></div>
 
 <main>
@@ -94,7 +94,6 @@
                     <label for="name">Cardholder Name</label>
                 </fieldset>
                 <br>
-                <button class="box foo" type="submit">ADD DEBIT CARD</button>
             </form>
         </div>
         <br>

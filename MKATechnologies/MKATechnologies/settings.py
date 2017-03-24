@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     'website.apps.WebsiteConfig',
     'product.apps.ProductConfig',
     'accounts.apps.AccountsConfig',
+    'django_extensions',
 ]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,10 +70,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
 ]
+
+TEMPLATES[0]['OPTIONS']['context_processors'].append("website.context_processors.template_processor")
+
 
 WSGI_APPLICATION = 'MKATechnologies.wsgi.application'
 
@@ -77,13 +85,20 @@ WSGI_APPLICATION = 'MKATechnologies.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 #
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'db',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
 

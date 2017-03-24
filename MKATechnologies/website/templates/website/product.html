@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="{% static 'css/product.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hover-min.css' %}">
+
     <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
 </head>
 <body>
-{% include "website/shared/navbar.html" %}
+{% include "website/shared/navbar.html" with categories=categories%}
 <div>
     <div id="navbar-bg">
     </div>
@@ -63,9 +65,8 @@
                 </div>
 
 
-                <div class='box foo'>
-                    ADD TO BASKET
-                </div>
+                <a id="btn-add-basket" class="hvr-grow">ADD TO BASKET</a>
+
             </div>
         </div>
 

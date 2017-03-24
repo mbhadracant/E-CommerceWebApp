@@ -981,3 +981,13 @@ a:hover,a:focus {
     margin-left:20px;
     color: grey;
 }
+
+.bold {
+    font-family: "Roboto Condensed", sans-serif;
+}
+
+.title {
+    text-align: center;
+    width:100%;
+    font-size:30px;
+}

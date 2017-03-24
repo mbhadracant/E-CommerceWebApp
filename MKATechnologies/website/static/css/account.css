@@ -50,6 +50,11 @@ fieldset input {
     text-align: center;
 }
 
+.form-label h6 {
+    text-align: center;
+    color:darkred;
+}
+
 .form-label h5:hover {
     cursor: pointer;
     text-decoration: underline;

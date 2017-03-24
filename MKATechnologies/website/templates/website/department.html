@@ -10,29 +10,19 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
 </head>
 <body>
-{% include "website/shared/navbar.html" %}
+{% include "website/shared/navbar.html" with categories=categories%}
 <div id="categories">
     <div id="categories-row" class="row">
-        <div class="cateogires-item">
-            <img style="width: 40px;height:60px;" src="{% static 'images/computer-icon.png' %}">
-            <h6>PC</h6>
-        </div>
-        <div class="cateogires-item">
-            <img style="width: 80px;height:60px;" src="{% static 'images/laptop-icon.png' %}">
-            <h6>Laptops</h6>
-        </div>
-        <div class="cateogires-item">
-            <img style="width: 80px;height:60px;" src="{% static 'images/monitor-icon.png' %}">
-            <h6>Monitors</h6>
-        </div>
-        <div class="cateogires-item">
-            <img style="width: 55px;height:60px;" src="{% static 'images/mouse-icon.png' %}">
-            <h6>Mouses</h6>
-        </div>
-        <div class="cateogires-item">
-            <img style="width: 80px;height:60px;" src="{% static 'images/keyboard-icon.png' %}">
-            <h6>Keyboards</h6>
-        </div>
+
+        {% for sub in subcategories %}
+            <div class="cateogires-item">
+            {% with 'images/subcategory-icons/'|add:category_url_name|add:'/'|add:sub.subcategory_image as image_static %}
+                 <img style="width: auto;height:40px;" src="{% static image_static %}">
+            {% endwith %}
+            <h6>{{ sub.name }}</h6>
+            </div>
+        {% endfor %}
+
     </div>
 </div>
 
@@ -53,7 +43,7 @@
 </ul>
 
 <div class="header">
-    <h2>AVAILABLE PRODUCTS IN COMPUTING</h2>
+    <h2>AVAILABLE PRODUCTS IN {{ category_full_name }}</h2>
 </div>
 
 <div id="scroll-nav">

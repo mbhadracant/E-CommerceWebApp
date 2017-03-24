@@ -1,15 +1,144 @@
+@media all and (min-width: 1024px) {
+    .product-img {
+        margin-top: 0px;
+    }
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+    .product-img {
+        margin-top: 20px;
+    }
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+    .product-img {
+        margin-top: 30px;
+    }
+}
+
+@media all and (max-width: 480px) {
+    .product-img {
+        margin-top: 40px;
+    }
+}
+
 #search {
-    margin-top:0px;
+    margin-top: 0px;
 }
 
 #navbar-bg {
-    background:black;
-    height:50px;
-    width:100%;
+    background: black;
+    height: 100px;
+    width: 100%;
 }
 
 #basket-content {
-    padding:50px;
-    width:100%;
-    height:500px;
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 100%;
+
+}
+
+#basket-content > div {
+    background: rgb(255, 255, 255);
+    box-shadow: 0px 0px 41px -5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#basket-content > div {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 18px;
+}
+
+.product-item {
+    height: 170px;
+}
+
+.product-price {
+    float: right;
+    color: darkred;
+
+}
+
+.product-name {
+    float: left;
+}
+
+.product-img {
+    float: left;
+}
+
+.product-img > img {
+    height: auto;
+    width: 100%;
+    float: left;
+}
+
+.product-details > div {
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-top: 40px;
+}
+
+.product-details > hr {
+    margin-top: 55px;
+}
+
+.product-details {
+    float: right;
+}
+
+.price {
+    float: right;
+    display: block;
+}
+
+.product-details {
+    width: 70%;
+}
+
+.product-img {
+    width: 20%;
+}
+
+#btn-checkout {
+    margin-top:40px;
+    font-style: normal;
+    display: block;
+    padding: 10px;
+    background-color: darkcyan;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    width: 250px;
+    text-align: center;
+    transition: 1s all;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#btn-checkout:hover {
+    background-color: deepskyblue;
+}
+
+#total {
+    font-size:26px;
+    color:rgb(10,100,0);
+    float:right;
+}
+
+.product-remove {
+    position: relative;
+    bottom:10px;
+    color:darkred;
+    float:right;
+}
+
+.product-remove:hover {
+    color:indianred;
+    text-decoration: underline;
 }

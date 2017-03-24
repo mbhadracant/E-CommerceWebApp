@@ -8,10 +8,57 @@
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/basket.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 </head>
-{% include "website/shared/navbar.html" %}
-<div id="navbar-bg"></div>
+{% include "website/shared/navbar.html" with categories=categories%}
+<div id="navbar-bg">
+</div>
 <div id="basket-content">
+    <div>
+        <div class="title bold">YOUR BASKET</div>
+        <hr>
+        <div class="product-item">
+            <div class="product-img">
+                <img src="{% static 'images/razer-blade-2.png' %}">
+            </div>
+            <div class="product-details">
+                <div class="product-name">Razer Blade</div>
+                <div class="product-price">£1799.99</div>
+                <br>
+                <hr>
+                <a class="product-remove"><i class="fa fa-remove"></i></a>
+            </div>
+        </div>
+        <hr>
+        <div class="product-item">
+            <div class="product-img">
+                <img src="{% static 'images/razer-blade-2.png' %}">
+            </div>
+            <div class="product-details">
+                <div class="product-name">Razer Blade</div>
+                <div class="product-price">£1799.99</div>
+                <br>
+                <hr>
+            </div>
+        </div>
+        <hr>
+        <div class="product-item">
+            <div class="product-img">
+                <img src="{% static 'images/razer-blade-2.png' %}">
+            </div>
+            <div class="product-details">
+                <div class="product-name">Razer Blade</div>
+                <div class="product-price">£1799.99</div>
+                <br>
+                <hr>
+            </div>
+        </div>
+        <hr>
+        <div id="total">£4000.69</div>
+        <br>
+        <a href="/checkout" id="btn-checkout" class="hvr-float">CHECKOUT</a>
+    </div>
+
 
 </div>
 

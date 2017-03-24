@@ -10,12 +10,9 @@ MKA TECHNOLOGIES</span></a>
             <span class="caret">&nbsp;&nbsp;&nbsp;&nbsp;</span>
         </a>
         <div class="dropdown-content">
-            <a class="dropdown-item" href="/computing">Computing</a>
-            <a class="dropdown-item" href="/tv-and-home-cinema">TV & Home Cinema</a>
-            <a class="dropdown-item" href="/gaming">Gaming</a>
-            <a class="dropdown-item" href="/mobile-phones">Mobile Phones</a>
-            <a class="dropdown-item" href="/camera">Camera</a>
-            <div class="dropdown-nested"></div>
+            {% for category in categories %}
+                <a class="dropdown-item" href="/{{ category.url_name }}">{{ category.name }}</a>
+            {% endfor %}
         </div>
 
     </div>
