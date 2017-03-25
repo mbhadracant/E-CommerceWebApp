@@ -17,7 +17,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from django.conf.urls import url, include
 from django.contrib import admin
 from website import views
-from product.models import Category
 from accounts import views as accountviews
 
 
@@ -37,13 +36,12 @@ urlpatterns = [
     url(r'^checkout/3/$', views.checkout_confirm),
     url(r'^checkout/4/$', views.checkout_success),
     url(r'^account/login/$', accountviews.login),
+    url(r'^(?P<url_name>(computing))/$', views.department),
+    url(r'^(?P<url_name>(mobile-phones))/$', views.department),
+    url(r'^(?P<url_name>(camera))/$', views.department),
+    url(r'^(?P<url_name>(gaming))/$', views.department),
+    url(r'^(?P<url_name>(tv-and-home-cinema))/$', views.department),
 
 ]
-
-categories = Category.objects.all()
-
-for category in categories:
-    urlpatterns.append(url(r'^(?P<url_name>(' + category.url_name + '))/$', views.department))
-
 
 urlpatterns = format_suffix_patterns(urlpatterns)
