@@ -2,11 +2,13 @@ from rest_framework import serializers
 from .models import User
 
 class UserSerializer(serializers.Serializer):
-    username = serializers.CharField(read_only = True)
-    first_name = serializers.CharField()
-    last_name = serializers.CharField()
+    user_id = serializers.IntegerField()
+    name = serializers.CharField()
+    street_address = serializers.CharField()
     email = serializers.CharField()
-    phone_number = serializers.IntegerField()
+    city = serializers.CharField()
+    country = serializers.CharField()
+    post_code = serializers.CharField()
 
     def create(self, validated_data):
         return User.objects.create(**validated_data)

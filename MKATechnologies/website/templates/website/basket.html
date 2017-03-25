@@ -15,51 +15,57 @@
 </div>
 <div id="basket-content">
     <div>
+        {% if products %}
+
+
         <div class="title bold">YOUR BASKET</div>
 
 
-        {% for product in products %}
-            <hr>
-            <div class="product-item">
-            <div class="product-img">
-                <img src="{{ product.image_link }}">
-            </div>
+        {% for p in products %}
+            <div id="{{ p.product.product_id }}" class="product-item">
+                <div class="product-img">
+                    <img src="{{ p.product.image_link }}">
+                </div>
             <div class="product-details">
-                <div class="product-name">{{ product.product_name }}</div>
-                <div class="product-price">£1799.99</div>
-                <br>
-                <hr>
-                <a class="product-remove"><i class="fa fa-remove"></i></a>
+                <div class="product-text">
+                    <span>{{ p.product.product_short_name }}</span>
+                    <span>Quantity:
+
+                    <select class="select-quantity form-control">
+                        {% for i in "xxxxxxxxxx" %}
+                            {% if p.quantity == forloop.counter0 %}
+                                <option selected value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
+                            {% else %}
+                                <option value="{{ forloop.counter0 }}">{{ forloop.counter0 }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                        </span>
+                <span class="product-price">£{{ p.price }}</span>
+                <span><a class="product-remove">REMOVE</a></span>
+                </div>
+
+
+
             </div>
         </div>
         {%  endfor %}
-        <div class="product-item">
-            <div class="product-img">
-                <img src="{% static 'images/razer-blade-2.png' %}">
-            </div>
-            <div class="product-details">
-                <div class="product-name">Razer Blade</div>
-                <div class="product-price">£1799.99</div>
-                <br>
-                <hr>
-            </div>
-        </div>
         <hr>
-        <div class="product-item">
-            <div class="product-img">
-                <img src="{% static 'images/razer-blade-2.png' %}">
-            </div>
-            <div class="product-details">
-                <div class="product-name">Razer Blade</div>
-                <div class="product-price">£1799.99</div>
-                <br>
-                <hr>
-            </div>
-        </div>
-        <hr>
-        <div id="total">£4000.69</div>
+        <div id="total">TOTAL: £{{ total }}</div>
         <br>
-        <a href="/checkout" id="btn-checkout" class="hvr-float">CHECKOUT</a>
+            {% if account %}
+                <a href="/checkout" id="btn-checkout" class="hvr-float">CHECKOUT</a>
+            {% else %}
+                <hr>
+                <div class="log-in-block">
+                    <p >Please log in to checkout</p>
+                    <a id="btn-checkout" href="/account" class="hvr-float">SIGN-IN OR REGISTER</a>
+                </div>
+            {% endif%}
+
+    {% else %}
+            <div class="title bold">BASKET IS EMPTY</div>
+    {% endif %}
     </div>
 
 
@@ -68,10 +74,49 @@
 {% include "website/shared/footer.html" %}
 <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
 <script>
-    $(document).ready(function() {
+    var csrftoken = $.cookie('csrftoken');
 
+                function csrfSafeMethod(method) {
+                    // these HTTP methods do not require CSRF protection
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                }
+
+                $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+
+    $(document).ready(function() {
+        $(".select-quantity").change(function(){
+            var id = $(this).parent().parent().parent().parent().attr("id")
+            var quantity = $(this).find(":selected").val()
+
+            $.ajax({url: "/api/changequantity/",
+            type: 'POST',
+            data: {'id': id, 'quantity': quantity},
+            success: function(result){
+                location.reload();
+            }});
+
+        });
+
+        $(".product-remove").click(function(){
+            var id = $(this).parent().parent().parent().parent().attr("id")
+            $.ajax({url: "/api/changequantity/",
+            type: 'POST',
+            data: {'id': id, 'quantity': 0},
+            success: function(result){
+                location.reload();
+            }});
+
+
+        });
     });
 </script>
 </body>

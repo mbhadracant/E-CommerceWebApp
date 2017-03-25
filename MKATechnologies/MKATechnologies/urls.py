@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^search/$', views.search),
     url(r'^product/([0-9]{1,4})/$', views.product),
     url(r'^account/$', views.account),
-    url(r'^account/(?P<error>\w+)$', views.account),
+    url(r'^account/(?P<text>\w+)$', views.account),
     url(r'^basket/$', views.basket),
     url(r'^checkout/$', views.checkout),
     url(r'^checkout/1/$', views.checkout_delivery),

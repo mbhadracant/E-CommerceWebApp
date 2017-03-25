@@ -58,7 +58,8 @@
                 <div class="tab-content">
 
                     <div class="tab-pane active" role="tabpanel" id="step2">
-                        <form action="/checkout/3">
+                        <form method="post" action="/checkout/3/">
+                            {% csrf_token %}
                         <h3 class="bold">PAYMENT</h3>
                             <hr>
                         <div class="placeholder-override-wrap">

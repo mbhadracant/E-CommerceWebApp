@@ -371,3 +371,12 @@ fieldset input {
 #account-content form button {
     display:none;
 }
+
+.log-out {
+    color:black;
+}
+
+.log-out:hover {
+    color:darkred;
+    text-decoration: underline;
+}

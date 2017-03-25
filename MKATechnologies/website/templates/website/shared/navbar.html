@@ -28,7 +28,11 @@ MKA TECHNOLOGIES</span></a>
     <div id="account" class="navbar-item">
         <a href="/account" id="account-icon">
             <i class="fa fa-user" aria-hidden="true"></i>
-            Account
+            {% if account %}
+                {{ account.name }}
+            {% else %}
+                SIGN-IN
+            {% endif %}
         </a>
     </div>
 

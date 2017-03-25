@@ -7,9 +7,10 @@ from django.contrib.auth.views import (
 )
 
 urlpatterns = [
-    url(r'^$', views.account, name='login'),
-    url(r'^/login', views.login, name='login'),
+    url(r'^$', views.account),
+    url(r'^/login', views.login),
     url(r'^/checklogin', account.checklogin, name='login'),
+
 
 
 

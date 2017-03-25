@@ -1,14 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect, HttpResponse, Http404, HttpResponseBadRequest
 from product.models import Category, Subcategory, Product
 
 def index(request):
 
-    if 'basket' in request.session:
-        basket = request.session['basket']
-        print(basket)
-    else:
-        request.session['basket'] = []
+    if 'basket' not in request.session:
+        request.session['basket'] = {}
 
 
 
@@ -42,27 +39,73 @@ def product(request, id):
         raise Http404
 
 
-def account(request, error=None):
+def account(request, text=None):
     context = {}
-    if error:
-        context['error_message'] = 'Incorrect email or password entered'
+    if text:
+        if(text == 'error'):
+            context['error_message'] = 'Incorrect email or password entered'
+        if(text == 'registered'):
+            context['registered'] = "Account created"
+
+    if('account' in request.session):
+        return render(request, 'website/account-logged-in.html')
     return render(request, 'website/account.html', context)
 
 def checkout_delivery(request):
     context = {}
+    request.session['checkout'] = {}
     return render(request, 'website/checkout-delivery.html', context)
 
 def checkout_payment(request):
-    context = {}
-    return render(request, 'website/checkout-payment.html', context)
+    if request.META.get('HTTP_REFERER') is not None:
+        if request.method == 'POST':
+            dict = request.session['checkout']
+            name = request.POST.get("name")
+            street = request.POST.get("street")
+            postcode = request.POST.get("postcode")
+            city = request.POST.get("city")
+            country = request.POST.get("country")
+
+            dict['name'] = name
+            dict['street'] = street
+            dict['postcode'] = postcode
+            dict['city'] = city
+            dict['country'] = country
+
+            request.session['checkout'] = dict
+
+            context = {}
+            return render(request, 'website/checkout-payment.html', context)
+    return HttpResponseBadRequest("Invalid request")
 
 def checkout_confirm(request):
-    context = {}
-    return render(request, 'website/checkout-confirm.html', context)
+    if request.META.get('HTTP_REFERER') is not None:
+        if request.method == 'POST':
+            dict = request.session['checkout']
+            cardnumber = request.POST.get("cardnumber")
+            expiry = request.POST.get("expiry")
+            cardholdername = request.POST.get("cardholdername")
+
+            dict['cardnumber'] = cardnumber
+            dict['expiry'] = expiry
+            dict['cardholdername'] = cardholdername
+
+            request.session['checkout'] = dict
+
+            context = {}
+            return render(request, 'website/checkout-confirm.html', context)
+    return HttpResponseBadRequest("Invalid request")
 
 def checkout_success(request):
-    context = {}
-    return render(request, 'website/checkout-success.html', context)
+    if request.META.get('HTTP_REFERER') is not None:
+        if request.method == 'POST':
+            checkout = request.session['checkout']
+            user_id = request.session['account']
+
+
+            context = {}
+            return render(request, 'website/checkout-success.html', context)
+    return HttpResponseBadRequest("Invalid request")
 
 def checkout(request):
     context = {}
@@ -72,12 +115,16 @@ def checkout(request):
 def basket(request):
 
     products = []
-
+    total = 0
     basket = request.session['basket']
 
-    for p in basket:
-        product = Product.objects.get(product_id=p[0])
-        products.append({'quantity': p[1], 'product': product})
+    for key,value in basket.items():
+        id = int(key)
+        quantity = value
 
-    context = {'products':products}
+        product = Product.objects.get(product_id=id)
+        price = float(product.price) * float(quantity)
+        products.append({'quantity': quantity, 'product': product, 'price':price})
+        total += price
+    context = {'products':products, 'total' : total}
     return render(request, 'website/basket.html',context)

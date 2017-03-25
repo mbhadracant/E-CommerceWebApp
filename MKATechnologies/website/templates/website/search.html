@@ -156,6 +156,9 @@ function getURLParameter(name) {
                    $(btn).addClass("box")
                    $(btn).addClass("foo")
                    $(btn).html("VIEW")
+                   $(btn).click(function() {
+                       window.location.replace("/product/" + element.product_id);
+                   });
                    $(product).append(btn)
 
                    $(container).append(product)

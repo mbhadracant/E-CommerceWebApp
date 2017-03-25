@@ -6,10 +6,11 @@ from .models import Product
 from .models import Category
 from .models import Subcategory
 from .models import Order
+from accounts.models import User
 from .serializers import  ProductSerializer, SubcategorySerializer
 from .serializers import  OrderSerializer
 from rest_framework.response import Response
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 import os
 
 def get_products(request):
@@ -138,12 +139,38 @@ def add_product(request):
     if(request.is_ajax() and request.method == 'POST'):
         id = request.POST.get("id")
         quantity = request.POST.get("quantity")
-        list = request.session['basket']
-        list.append((id,quantity))
-        request.session['basket'] = list
-        print(request.session.get("basket"))
-        return HttpResponse("added")
+        id = str(id.encode('ascii', 'ignore'))
+        quantity = int(quantity.encode('ascii', 'ignore'))
+        basket = request.session['basket']
+
+        if id in basket:
+            basket[id] = basket[id] + quantity
+            if basket[id] > 9:
+                basket[id] = 9
+        else:
+            basket[id] = quantity
+
+        request.session['basket'] = basket
+
+        return HttpResponse("added product!")
     raise Http404
+
+def change_quantity_in_basket(request):
+    if (request.is_ajax() and request.method == 'POST'):
+        id = request.POST.get("id")
+        quantity = request.POST.get("quantity")
+        id = str(id.encode('ascii', 'ignore'))
+        quantity = int(quantity.encode('ascii', 'ignore'))
+        basket = request.session['basket']
+        basket[id] = quantity
+        if(quantity == 0):
+            del basket[id]
+
+        request.session['basket'] = basket
+
+        return HttpResponse("changed quantity!")
+    raise Http404
+
 
 def get_basket(request):
     if(request.is_ajax()):
@@ -151,6 +178,40 @@ def get_basket(request):
     raise Http404
 
 def basket(request):
-    request.session['basket'] = []
+    request.session['basket'] = {}
 
     return HttpResponse("basket resetted")
+
+def register(request):
+    if request.method == 'POST':
+
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        street = request.POST.get('street')
+        phone = request.POST.get('phone')
+        city = request.POST.get('city')
+        country = request.POST.get('country')
+        postcode = request.POST.get('postcode')
+
+
+        user = User(name=name, email=email, password=password, street_address=street,
+                    phone_number=phone, city=city, country=country, post_code=postcode)
+
+        user.save()
+
+        return HttpResponseRedirect("/account/registered")
+
+def checkemail(request):
+    if (request.is_ajax() and request.method == 'POST'):
+        email = request.POST.get("email")
+        try:
+            User.objects.get(email=email)
+            return HttpResponse("invalid")
+        except User.DoesNotExist:
+            return HttpResponse("valid")
+
+def logout(request):
+    if (request.is_ajax() and request.method == 'POST'):
+        del request.session['account']
+    return HttpResponse()

@@ -12,12 +12,14 @@
 <body>
 {% include "website/shared/navbar.html" with categories=categories %}
 <div id="navbar-bg"></div>
+{% if registered %}
+    <h2 class="title">{{ registered }}</h2>
+{% endif %}
 <div class="container">
     <div id="account-content">
         <div id="tabs">
-            <div class="tab-item"><b>LOG IN</b></div>
+            <div class="tab-item selected"><b>LOG IN</b></div>
             <div class="tab-item"><b>REGISTER</b></div>
-            <span></span>
         </div>
         <div id="tab-content">
             <div class="log-in">
@@ -43,8 +45,8 @@
 
             </div>
             <div class="register">
-                <form class="form-label form-css-label">
-
+                <form method="post" action="/api/register/" class="form-label form-css-label">
+                    {% csrf_token %}
                     <fieldset>
                         <input id="name" name="name" type="text" autocomplete="off" required/>
                         <label for="name">Name</label>
@@ -54,27 +56,76 @@
                         <label for="email">Email</label>
                     </fieldset>
                     <fieldset>
-                        <input id="password-register" name="password" type="password" autocomplete="off" minlength="6"
+                        <input id="password-register" name="password" type="password" autocomplete="off"
                                maxlength="20" required/>
                         <label for="password">Password</label>
                     </fieldset>
+                    <fieldset>
+                        <input id="street-register" name="street" type="text" autocomplete="off"
+                               maxlength="20" required/>
+                        <label for="password">Street Name</label>
+                    </fieldset>
+                    <fieldset>
+                        <input id="city-register" name="city" type="text" autocomplete="off"
+                               maxlength="20" required/>
+                        <label for="password">City</label>
+                    </fieldset>
+                    <fieldset>
+                        <input id="country-register" name="country" type="text" autocomplete="off"
+                               maxlength="20" required/>
+                        <label for="password">Country</label>
+                    </fieldset>
+                    <fieldset>
+                        <input id="postcode-register" name="postcode" type="text" autocomplete="off"
+                               maxlength="7" required/>
+                        <label for="password">Postcode</label>
+                    </fieldset>
+                    <fieldset>
+                        <input id="phone-register" name="phone" type="number" autocomplete="off"
+                               maxlength="20" required/>
+                        <label for="password">Phone number</label>
+                    </fieldset>
                     <hr>
                     <span>PASSWORD MUST BE BETWEEN 6 - 20 CHARACTERS</span>
-                    <button class="account-btn" type="submit">REGISTER</button>
+
+                    <p class="invalid"></p>
+
+                    <button class="account-btn" type="button">REGISTER</button>
                 </form>
 
             </div>
         </div>
     </div>
-    <!-- "><div"s are required to avoid spaces between display: inline-block elements. http://css-tricks.com/fighting-the-space-between-inline-block-elements/ -->
 </div>
 </div>
 
 {% include "website/shared/footer.html" %}
 <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
 <script>
+
+     var csrftoken = $.cookie('csrftoken');
+
+                function csrfSafeMethod(method) {
+                    // these HTTP methods do not require CSRF protection
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                }
+
+                $.ajaxSetup({
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                        }
+                    }
+                });
+
+     function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
     $(document).ready(function () {
 
         $('.form-label label').click(function () {
@@ -91,24 +142,63 @@
             var tabRegisterText = $(tabRegister).find('b').html()
             var selectedTab = $(this)
             var selectedText = $(selectedTab).find('b').html()
-            var line = $('#tabs span');
-            var marginLeft = $(line).css("margin-left")
-            if (marginLeft === '-75px' && tabRegisterText === selectedText) {
-                $(line).animate({'marginLeft': 75}, 250, "swing")
+
+
+
+            if (tabRegisterText === selectedText) {
+                if(!$(this).hasClass("selected")) {
+                     $(selectedTab).addClass("selected")
+                     $(tabLogIn).removeClass("selected")
+                }
+
                 $('.log-in').fadeOut(250, function () {
                     $('.register').fadeIn()
                 })
 
-            }
-            if (marginLeft === '75px' && tabLogInText === selectedText) {
-                $(line).animate({'marginLeft': -75}, 250, "swing")
 
+            }
+            if (tabLogInText === selectedText) {
+                 if(!$(this).hasClass("selected")) {
+                     $(selectedTab).addClass("selected")
+                     $(tabRegister).removeClass("selected")
+                }
                 $('.register').fadeOut(250, function () {
                     $('.log-in').fadeIn()
                 })
 
             }
 
+        });
+
+        $(".register button").click(function() {
+
+            $('.register input').each(
+                function() {
+                    if(!$(this).val()) {
+                        $('.invalid').html("Please fill in all fields of the form!")
+                        return;
+                    }
+                }
+            );
+
+
+
+            var email = $('#email').val();
+
+            if(!validateEmail(email)) {
+                $('.invalid').html("Invalid email")
+                return;
+            }
+            $.ajax({url: "/api/checkemail/",
+            type: 'POST',
+            data: {'email': email},
+            success: function(result){
+                if(result == 'valid') {
+                    $(".register form").submit();
+                } else {
+                    $('.invalid').html("Email already taken!")
+                }
+            }});
         });
     });
 </script>

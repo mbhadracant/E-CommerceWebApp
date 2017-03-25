@@ -13,7 +13,6 @@ html, body {
 }
 
 .container {
-    height:600px;
     padding:50px;
 }
 
@@ -149,10 +148,6 @@ fieldset input {
     cursor: pointer;
 }
 
-#tab-content {
-    height:300px;
-}
-
 .log-in {
     width:100%;
     max-width:275px;
@@ -209,3 +204,13 @@ fieldset input {
 }
 
 
+.selected {
+    border-bottom: 2px solid black;
+}
+
+.invalid {
+    color:darkred;
+    text-align: center;
+    margin-top:10px;
+    font-size:16px;
+}

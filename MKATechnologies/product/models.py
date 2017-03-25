@@ -20,11 +20,12 @@ class Product(models.Model):
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    product_id= models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(max_length=200)
+    amount = models.IntegerField(max_length=200)
+    name = models.CharField(max_length=200)
     total = models.FloatField(max_length=200)
     street_name = models.CharField(max_length=200)
-    postcode_name=models.CharField(max_length=7)
+    postcode = models.CharField(max_length=7)
+    date = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     country = models.CharField(max_length=200)
 

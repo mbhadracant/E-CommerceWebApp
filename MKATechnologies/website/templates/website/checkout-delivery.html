@@ -58,8 +58,16 @@
                 <div class="tab-content">
                     <div class="tab-pane active" role="tabpanel" id="step1">
                         <h3 class="bold">DELIVERY ADDRESS</h3>
+
                         <hr>
-                        <form action="/checkout/2/">
+
+                        <a id="my-details">Use My Details</a>
+                        <form method="POST" action="/checkout/2/">
+                            {% csrf_token %}
+                        <div class="placeholder-override-wrap">
+                            <input name="name" type="text" class="placeholder-override-input" id="name" required autocomplete="off">
+                            <span class="placeholder-override-label">Name</span>
+                        </div>
                         <div class="placeholder-override-wrap">
                             <input name="street" type="text" class="placeholder-override-input" id="street" required autocomplete="off">
                             <span class="placeholder-override-label">Street Address</span>
@@ -99,21 +107,6 @@
                         </div>
 
                     </div>
-                    <div class="tab-pane" role="tabpanel" id="step3">
-                        <h3>Step 3</h3>
-                        <p>This is step 3</p>
-                        <ul class="list-inline pull-right">
-                            <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                            <li><button type="button" class="btn btn-default next-step">Skip</button></li>
-                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
-                        </ul>
-                    </div>
-                    <div class="tab-pane" role="tabpanel" id="complete">
-                        <h3>Complete</h3>
-                        <p>You have successfully completed all steps.</p>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
         </div>
     </section>
     </div>
@@ -126,7 +119,19 @@
 <script src="{% static 'js/script.js' %}"></script>
 <script>
     $(document).ready(function () {
-
+     var name = "{{ account.name }}";
+     var street = "{{ account.street_address }}";
+     var postcode = "{{ account.post_code }}";
+     var city = "{{ account.city }}";
+     var country = "{{ account.country }}";
+     console.log(street)
+         $("#my-details").click(function() {
+             $("input[name=name]").val(name)
+             $("input[name=street]").val(street)
+             $("input[name=postcode]").val(postcode)
+             $("input[name=city]").val(city)
+             $("input[name=country]").val(country)
+         });
     //Wizard
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 

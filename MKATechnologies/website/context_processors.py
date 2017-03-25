@@ -1,5 +1,18 @@
 from product.models import Category
 def template_processor(request):
+
+    context = {}
     categories = Category.objects.all()
-    basket_amount = len(request.session['basket'])
-    return {'categories': categories, 'basket_amount': basket_amount}
+    context['categories'] = categories
+    basket = request.session['basket']
+
+    quantity = 0
+    for key, value in basket.items():
+        quantity = quantity + value
+
+    context['basket_amount'] = quantity
+
+    if('account' in request.session):
+        context['account'] = request.session['account']
+
+    return context

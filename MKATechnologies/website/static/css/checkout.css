@@ -364,4 +364,20 @@ form button {
     color:darkgreen;
 }
 
+#my-details {
+    display: block;
+    width:130px;
+    text-align: center;
+    font-family: 'Roboto Condensed', sans-serif;
+    border:1px solid black;
+    background:transparent;
+    padding:5px;
+    color:black;
+    border-radius:10px;
+    margin-bottom:10px;
+}
 
+#my-details:hover {
+    background:black;
+    color:white;
+}

@@ -58,7 +58,8 @@
                 <div class="tab-content">
 
                     <div class="tab-pane active" role="tabpanel" id="step3">
-                        <form action="/checkout/4">
+                        <form method="post" action="/checkout/4/">
+                            {% csrf_token %}
                         <h3 class="bold">CONFIRM</h3>
                             <hr>
                             <br>
@@ -98,7 +99,7 @@
 <script>
     $(document).ready(function () {
 
-    //Wizard
+
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 
         var $target = $(e.target);
