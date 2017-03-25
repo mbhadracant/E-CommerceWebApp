@@ -9,6 +9,7 @@ class UserSerializer(serializers.Serializer):
     city = serializers.CharField()
     country = serializers.CharField()
     post_code = serializers.CharField()
+    phone_number = serializers.IntegerField()
 
     def create(self, validated_data):
         return User.objects.create(**validated_data)

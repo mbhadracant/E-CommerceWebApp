@@ -49,28 +49,12 @@
 
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading" data-toggle="collapse" data-target="#brand-filter">
-                        <h4 class="panel-title">
-                            Brand
-                        </h4>
-                        <div class="filter-nav">
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                    <div id="brand-filter" class="panel-collapse collapse">
-                        <div class="filter-item">ASUS</div>
-                        <div class="filter-item">Gaming</div>
-                        <div class="filter-item">Mobile Phones</div>
-                        <div class="filter-item">Camera</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     <div id="products">
+        <h2 id="no-products"></h2>
         <div id="products-content">
 
         </div>
@@ -136,6 +120,11 @@ function getURLParameter(name) {
                 var container = $("#products-content");
                 $(container).empty()
 
+                if(result.length == 0) {
+                    $('#no-products').html("No products available")
+                } else {
+                    $('#no-products').html("");
+                }
                result.forEach(function(element) {
                     var product = $("<div>")
                    $(product).addClass("product")

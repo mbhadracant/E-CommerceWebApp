@@ -20,14 +20,8 @@
         <div class="row">
             <div id="product-image" class="col-sm-5 col-centered">
                 <div class="main-image">
-                    <a href="{% static 'images/razer-blade-2.png' %}" data-lightbox="image-1">
-                    <img src="{% static 'images/razer-blade-2.png' %}">
+                    <img src="{{ product.image_link }}">
                     </a>
-                </div>
-                <div class="alt-images">
-                    <img src="{% static 'images/razer-blade-2.png' %}">
-                    <img src="{% static 'images/razer-blade-1.png' %}">
-                    <img src="{% static 'images/razer-blade-3.png' %}">
                 </div>
             </div>
             <div id="product-details" class="col-sm-5 col-centered">

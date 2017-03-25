@@ -63,21 +63,21 @@
                         <h3 class="bold">CONFIRM</h3>
                             <hr>
                             <br>
-                            <div class="product-item">
+
+                            {% for p in products %}
+                                <div class="product-item">
                                 <div class="product-item-block">
-                                    <div class="product-item-detail"><span class="mobile-nav-greyed">1x</span>&nbsp;&nbsp;&nbsp;<span class="bold">Razer Blade</span> by Razer</div>
-                                    <div class="product-item-price">£3700</div>
+                                    <div class="product-item-detail"><span class="mobile-nav-greyed">{{p.quantity}}x</span>&nbsp;&nbsp;&nbsp;
+                                        <span class="bold">{{ p.product.product_short_name }}</span>
+                                        {{ p.product.make }} </div>
+                                    <div class="product-item-price">£{{ p.price }}</div>
                                 </div>
                             </div>
                             <br>
-                            <div class="product-item">
-                                <div class="product-item-block">
-                                    <div class="product-item-detail"><span class="mobile-nav-greyed">1x</span>&nbsp;&nbsp;&nbsp;<span class="bold">Razer Blade</span> by Razer</div>
-                                    <div class="product-item-price">£3700</div>
-                                </div>
-                            </div>
+                            {% endfor %}
+
                             <hr>
-                            <div class="checkout-total-price bold">TOTAL PRICE: £10000</div>
+                            <div class="checkout-total-price bold">TOTAL PRICE: {{ total }}</div>
                         <a href="/checkout/2" class="wizard-btn-continue prev-step">BACK</a>
                         <button type="submit" class="wizard-btn-continue next-step">PLACE ORDER</button>
                         </form>

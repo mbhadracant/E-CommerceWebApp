@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
 </head>
 <body>
-{% include "website/shared/navbar.html" with categories=categories%}
+{% include "website/shared/navbar.html" with categories=categories %}
 <div id="navbar-bg"></div>
 
 <main>
@@ -19,12 +19,6 @@
     <label for="tab1">
         <i class="fa fa-cube"></i>
         Orders
-    </label>
-
-    <input id="tab2" type="radio" name="tabs">
-    <label for="tab2">
-        <i class="fa fa-credit-card-alt"></i>
-        Payments
     </label>
 
     <input id="tab3" type="radio" name="tabs">
@@ -44,150 +38,73 @@
 
     <section id="content1">
         <div id="orders">
-            <div class="order-block">
-                <div class="order-header">
-                    <div class="order-placed">ORDER PLACED<br><span>24/12/2016</span></div>
-                    <div class="order-dispatched">DISPATCHED TO<br><span>MAYUR BHADRACANT</span></div>
-                    <div class="order-id">ORDER ID<br><span>#45435933</span></div>
-                </div>
-                <div class="order-content">
-                    <div class="order-item">
-                        <img src="{% static 'images/razer-blade-2.png' %}">
-                        <div>
-                            <span class="order-product-name">Razer Blade</span>
-                            <br>
-                            <span class="order-product-price">£1799.99</span>
-                        </div>
+
+            {% for order in orders %}
+                <div class="order-block">
+                    <div class="order-header">
+                        <div class="order-placed">ORDER PLACED<br><span>{{ order.order.date }}</span></div>
+                        <div class="order-dispatched">DISPATCHED TO<br><span>{{ order.order.name }}</span></div>
+                        <div class="order-id">ORDER ID<br><span>{{ order.order.order_id }}</span></div>
                     </div>
-                    <hr>
-                    <div class="order-item">
-                        <img src="{% static 'images/dell-xps-tower.png' %}">
-                        <div>
-                            <span class="order-product-name">Razer Blade</span>
-                            <br>
-                            <span class="order-product-price">£1799.99</span>
-                        </div>
+                    <div class="order-content">
+
+                        {% for po in order.products_order %}
+                            <div class="order-item">
+                                <img src="{{ po.product_id.image_link }}">
+                                <div>
+                                    <span class="order-product-name">{{po.quantity}}x {{ po.product_id.product_name }}</span>
+                                    <br>
+
+                                    <span class="order-product-price">{{ po.product_id.product_make }}</span>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    <div class="order-footer">
+                        <div class="order-total">£{{ order.order.total }}</div>
                     </div>
-                    <hr>
-                    <div class="order-item"></div>
+
+                    </div>
+
                 </div>
-                <div class="order-footer">
-                    <div class="order-total">£100.39</div>
-                </div>
-            </div>
+            {% endfor %}
+
+
         </div>
     </section>
 
-    <section id="content2">
-        <div id="add-payment-btn" class="box foo">Add Payment Method</div>
-        <div class="payment-form">
-            <form class="form-label form-css-label">
-                <fieldset>
-                    <input id="type" name="type" type="text" autocomplete="off" value="VISA" required/>
-                    <label for="type">Type</label>
-                </fieldset>
-                <fieldset>
-                    <input id="number" name="number" type="text" autocomplete="off" required/>
-                    <label for="number">Card Number</label>
-                </fieldset>
-                <fieldset>
-                    <input id="expiry" name="expiry" type="text" autocomplete="off" required/>
-                    <label for="expiry">Expiry Date</label>
-                </fieldset>
-                <fieldset>
-                    <input id="name" name="name" type="text" autocomplete="off" required/>
-                    <label for="name">Cardholder Name</label>
-                </fieldset>
-                <br>
-            </form>
-        </div>
-        <br>
-        <div class="payment-content">
-            <div class="payment-block">
-                <div class="icons">
-                    <i class="fa fa-credit-card"></i>
-                    <i class="fa fa-close"></i>
-                </div>
-                <div>
-                    <div class="payment-labels">
-                        <p>Type:</p>
-                        <p>Card Number:</p>
-                        <p>Expiry Date:</p>
-                        <p>Cardholder Name:</p>
-                    </div>
-                    <div class="payment-fields">
-                        <p>VISA</p>
-                        <p>1428-3243-5353-3535</p>
-                        <p>03/2020</p>
-                        <p>M BHADRACANT</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="payment-block">
-                <div class="icons">
-                    <i class="fa fa-credit-card"></i>
-                    <i class="fa fa-close"></i>
-                </div>
-                <div>
-                    <div class="payment-labels">
-                        <p>Type:</p>
-                        <p>Card Number:</p>
-                        <p>Expiry Date:</p>
-                        <p>Cardholder Name:</p>
-                    </div>
-                    <div class="payment-fields">
-                        <p>VISA</p>
-                        <p>1428-3243-5353-3535</p>
-                        <p>03/2020</p>
-                        <p>M BHADRACANT</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
 
     <section id="content3">
         <div id="account-content">
             <form disabled>
                 <div class="form-group">
-                    <label for="username">USERNAME</label>
-                    <input type="text" class="form-control " id="username" value="mbhadracant">
-                </div>
-                <div class="form-group">
                     <label for="firstname">FIRST NAME</label>
-                    <input type="text" class="form-control" id="firstname" value="Mayur">
-                </div>
-                <div class="form-group">
-                    <label for="lastname">LAST NAME</label>
-                    <input type="text" class="form-control" id="lastname" value="Bhadracant">
+                    <input type="text" class="form-control" id="firstname" value="{{ account.name }}">
                 </div>
                 <div class="form-group">
                     <label for="email">EMAIL</label>
-                    <input type="text" class="form-control" id="email" value="mbhadracant@gmail.com">
+                    <input type="text" class="form-control" id="email" value="{{ account.email }}">
                 </div>
                 <div class="form-group">
                     <label for="street">STREET NAME</label>
-                    <input type="text" class="form-control" id="street" value="45A Park Road">
+                    <input type="text" class="form-control" id="street" value="{{ account.street_address }}">
                 </div>
                 <div class="form-group">
                     <label for="city">CITY</label>
-                    <input type="text" class="form-control" id="city" value="London">
+                    <input type="text" class="form-control" id="city" value="{{ account.city }}">
                 </div>
                 <div class="form-group">
                     <label for="country">COUNTRY</label>
-                    <input type="text" class="form-control" id="country" value="United Kingdom">
+                    <input type="text" class="form-control" id="country" value="{{ account.country }}">
                 </div>
                 <div class="form-group">
                     <label for="phone">PHONE</label>
-                    <input type="text" class="form-control" id="phone" value="02087234748">
+                    <input type="text" class="form-control" id="phone" value="{{ account.phone_number }}">
                 </div>
-                <button class="box foo">SAVE</button>
             </form>
         </div>
 
-        <div id="edit-account" class="box foo">EDIT</div>
     </section>
 
 
@@ -202,18 +119,18 @@
 
     var csrftoken = $.cookie('csrftoken');
 
-                function csrfSafeMethod(method) {
-                    // these HTTP methods do not require CSRF protection
-                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-                }
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
 
-                $.ajaxSetup({
-                    beforeSend: function(xhr, settings) {
-                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                        }
-                    }
-                });
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
 
     $(document).ready(function () {
         $('.form-label label').click(function () {
@@ -227,21 +144,18 @@
             });
         });
 
-        $("#account-content input").prop( "disabled", true );
 
-        $('#edit-account').click(function() {
-            $("#account-content input").prop( "disabled", false );
-            $(this).hide();
-            $("#account-content form button").show();
-        });
 
-        $('.log-out').click(function() {
-            $.ajax({url: "/api/logout/",
-            type: 'POST',
-            data: {},
-            success: function(result){
-                window.location.replace("/");
-            }});
+
+        $('.log-out').click(function () {
+            $.ajax({
+                url: "/api/logout/",
+                type: 'POST',
+                data: {},
+                success: function (result) {
+                    window.location.replace("/");
+                }
+            });
         });
     });
 

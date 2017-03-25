@@ -1,6 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, Http404, HttpResponseBadRequest
-from product.models import Category, Subcategory, Product
+from product.models import Category, Subcategory, Product, Order, ProductOrder
+from accounts.models import User
+import datetime
+import smtplib
+import sys
+import json
+print sys.getdefaultencoding()
 
 def index(request):
 
@@ -48,7 +54,20 @@ def account(request, text=None):
             context['registered'] = "Account created"
 
     if('account' in request.session):
-        return render(request, 'website/account-logged-in.html')
+        orders = []
+        id = request.session['account']['user_id']
+        user = User.objects.get(user_id=id)
+
+        orders_db = Order.objects.all().filter(user_id=user)
+
+        for o in orders_db:
+
+            product_orders = ProductOrder.objects.all().filter(order_id=o)
+
+            orders.append({'order': o, 'products_order': product_orders, })
+        context['orders'] = orders
+
+        return render(request, 'website/account-logged-in.html', context)
     return render(request, 'website/account.html', context)
 
 def checkout_delivery(request):
@@ -92,18 +111,72 @@ def checkout_confirm(request):
 
             request.session['checkout'] = dict
 
-            context = {}
+            products = []
+            total = 0
+            basket = request.session['basket']
+
+            for key, value in basket.items():
+                id = int(key)
+                quantity = value
+
+                product = Product.objects.get(product_id=id)
+                price = float(product.price) * float(quantity)
+                products.append({'quantity': quantity, 'product': product, 'price': price})
+                total += price
+
+            context = {'products' : products, 'total' : total}
+
             return render(request, 'website/checkout-confirm.html', context)
     return HttpResponseBadRequest("Invalid request")
 
 def checkout_success(request):
     if request.META.get('HTTP_REFERER') is not None:
         if request.method == 'POST':
-            checkout = request.session['checkout']
-            user_id = request.session['account']
+            basket = request.session['basket']
+            user_id = request.session['account']['user_id']
+            user = User.objects.get(user_id = user_id)
+            name = request.session['checkout']['name']
+            total = request.session['basket_total']
+            street = request.session['checkout']['street']
+            postcode = request.session['checkout']['street']
+            city = request.session['checkout']['city']
+            country = request.session['checkout']['country']
+            date = datetime.datetime.today().strftime('%d-%m-%Y')
+
+            order = Order(user_id=user, name=name, total = total, street_name=street,
+                          postcode=postcode, city=city, country=country, date=date)
+            order.save()
+            msg_template = ""
+            for key,value in basket.items():
+                    product = Product.objects.get(product_id=int(key))
+                    product_order = ProductOrder(order_id=order,
+                                                 product_id=product, quantity=value)
+                    product_order.save()
+                    msg_template = msg_template + str(value) + "x " + product.product_name + " - "\
+                                 + str(product.price * float(value)) + " \n"
 
 
             context = {}
+
+
+            fromaddr = 'mka.tech.helpdesk@gmail.com'
+            toaddrs = request.session['account']['email']
+            msg = 'Hi, ' + request.session['account']['name'] + "\n\nHere is your order:\n\n"
+            msg = msg + msg_template
+            msg = msg + "-----------------------------"
+            msg = msg + "\nTotal: " + str(total) + "\n\nThanks for shopping with us,\nMKA Technologies"
+            username = 'mka.tech.helpdesk@gmail.com'
+            password = 'adminmka'
+            server = smtplib.SMTP('smtp.gmail.com:587')
+            server.ehlo()
+            server.starttls()
+            server.login(username, password)
+            server.sendmail(fromaddr, toaddrs, msg)
+            server.quit()
+
+            request.session['basket'] = {}
+
+
             return render(request, 'website/checkout-success.html', context)
     return HttpResponseBadRequest("Invalid request")
 
@@ -126,5 +199,7 @@ def basket(request):
         price = float(product.price) * float(quantity)
         products.append({'quantity': quantity, 'product': product, 'price':price})
         total += price
+
+    request.session['basket_total'] = total
     context = {'products':products, 'total' : total}
     return render(request, 'website/basket.html',context)
